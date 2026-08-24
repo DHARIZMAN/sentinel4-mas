@@ -11,7 +11,7 @@ and a predictive counter-strategy.
 > Mini-Project: Multi-Agent System Design · Malaysian Institute of Information
 > Technology.
 
-**Repository:** `<REPLACE WITH YOUR GITHUB URL BEFORE SUBMISSION>`
+**Repository:** <https://github.com/DHARIZMAN/sentinel4-mas>
 
 ### Submission documents
 
@@ -22,8 +22,9 @@ and a predictive counter-strategy.
 | **Presentation deck** | [`docs/PRESENTATION.pptx`](docs/PRESENTATION.pptx) | 16 slides with per-slide speaker notes and demo scripts |
 | Architecture diagram | [`docs/architecture.svg`](docs/architecture.svg) · [`.png`](docs/architecture.png) · [`.mermaid`](docs/architecture.mermaid) | Router, agent nodes, 4 conditional edges, state management |
 
-> **Before submitting:** fill in the highlighted placeholders on the report cover page,
-> the AI-usage table (§7.1), the declaration signatures (§10) and the repository URL.
+> **Before submitting:** fill in the remaining highlighted placeholders in the report —
+> the submission date on the cover page, the AI-usage table (§7.1), and the
+> declaration signatures (§10).
 
 ---
 
@@ -33,7 +34,7 @@ The system ships with a deterministic **offline engine**, so it runs end to end
 with no API key, no GPU and no network.
 
 ```bash
-git clone <your-repo-url> && cd <repo>
+git clone https://github.com/DHARIZMAN/sentinel4-mas.git && cd sentinel4-mas
 python -m venv venv && source venv/bin/activate      # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env                                  # defaults to MAS_PROVIDER=mock
