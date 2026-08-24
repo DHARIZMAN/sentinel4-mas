@@ -1,0 +1,11 @@
+SOC TELEMETRY EXTRACT - 2026-02-14 02:00 to 03:00 UTC
+[02:14:07] INBOUND VOICE  ext-4471 <- +44-20-XXXX-8823  duration 96s
+[02:26:41] PROC          WKS-FIN-0093  powershell.exe -enc <base64 redacted>
+[02:27:02] NET OUT       WKS-FIN-0093 -> 185.220.101.44:443  TLS1.3  beacon interval 300s
+[02:31:55] NET OUT       WKS-FIN-0117 -> 185.220.101.44:443  TLS1.3  beacon interval 300s
+[02:33:10] DNS           veridian-support.top -> 91.219.238.12
+[02:41:19] AUTH          MFA reset  account svc_backup_admin  requested via helpdesk phone
+[02:44:03] AUTH          MFA reset  account d.okafor_adm      requested via helpdesk phone
+[02:52:38] AUTH SUCCESS  d.okafor_adm from ASN 209588 (unfamiliar)
+[02:58:12] FILE          backup catalogue index accessed by svc_backup_admin
+NOTE: edge firewall build predates the CVE-2024-3400 fix.

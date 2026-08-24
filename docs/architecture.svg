@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1120" width="1000" height="1120" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <style>
+      .bx{fill:#f8fafc;stroke:#334155;stroke-width:1.6}
+      .agent{fill:#eef2ff;stroke:#4338ca;stroke-width:1.8}
+      .fuse{fill:#e0e7ff;stroke:#3730a3;stroke-width:2.4}
+      .gate{fill:#fef3c7;stroke:#b45309;stroke-width:1.8}
+      .fb{fill:#fee2e2;stroke:#b91c1c;stroke-width:2}
+      .term{fill:#e2e8f0;stroke:#334155;stroke-width:1.6}
+      .t{font-size:13px;fill:#0f172a}
+      .tb{font-size:13.5px;font-weight:700;fill:#0f172a}
+      .ts{font-size:10.5px;fill:#475569}
+      .tw{font-size:11px;fill:#7c2d12}
+      .lbl{font-size:10.5px;font-weight:700;fill:#b45309}
+      .ln{stroke:#334155;stroke-width:1.6;fill:none;marker-end:url(#ar)}
+      .lnw{stroke:#b45309;stroke-width:1.6;fill:none;marker-end:url(#arw);stroke-dasharray:6 3}
+      .lnr{stroke:#b91c1c;stroke-width:1.6;fill:none;marker-end:url(#arr)}
+    </style>
+  </defs>
+
+  <text x="20" y="22" class="tb" font-size="16">SENTINEL-4 — MAS Execution Graph (LangGraph StateGraph)</text>
+
+  <rect x="210" y="28" width="200" height="42" rx="21" class="term"/>
+  <text x="310" y="54" class="t" text-anchor="middle">Operator incident brief</text>
+
+  <rect x="225" y="100" width="170" height="40" rx="5" class="bx"/>
+  <text x="310" y="125" class="t" text-anchor="middle">ingest</text>
+
+  <rect x="175" y="162" width="270" height="58" rx="5" class="agent"/>
+  <text x="310" y="184" class="tb" text-anchor="middle">router — MissionRouter</text>
+  <text x="310" y="200" class="ts" text-anchor="middle">DYNAMIC semantic classification</text>
+  <text x="310" y="214" class="ts" text-anchor="middle">degrades to STATIC keyword rules</text>
+
+  <rect x="45" y="262" width="210" height="58" rx="5" class="agent"/>
+  <text x="150" y="283" class="tb" text-anchor="middle">audio_analyst</text>
+  <text x="150" y="299" class="ts" text-anchor="middle">Deepfake Audio Specialist</text>
+  <text x="150" y="313" class="ts" text-anchor="middle">虚假语音识别专员</text>
+
+  <rect x="290" y="262" width="210" height="58" rx="5" class="agent"/>
+  <text x="395" y="283" class="tb" text-anchor="middle">video_detector</text>
+  <text x="395" y="299" class="ts" text-anchor="middle">Manipulated Video Detector</text>
+  <text x="395" y="313" class="ts" text-anchor="middle">流视频编辑检测专员</text>
+
+  <rect x="130" y="362" width="360" height="62" rx="5" class="fuse"/>
+  <text x="310" y="383" class="tb" text-anchor="middle">cyber_coordinator — FUSION POINT</text>
+  <text x="310" y="399" class="ts" text-anchor="middle">Cyber Offense/Defense Coordinator · 网络攻防专员</text>
+  <text x="310" y="415" class="ts" text-anchor="middle">only agent that may set vector_verified = true</text>
+
+  <path d="M310,434 L382,472 L310,510 L238,472 Z" class="gate"/>
+  <text x="310" y="469" class="lbl" text-anchor="middle">PATH 2</text>
+  <text x="310" y="482" class="tw" text-anchor="middle">health gate</text>
+
+  <rect x="205" y="542" width="210" height="46" rx="5" class="bx"/>
+  <text x="310" y="561" class="tb" text-anchor="middle">threat_fusion</text>
+  <text x="310" y="577" class="ts" text-anchor="middle">confidence-weighted score</text>
+
+  <path d="M310,594 L390,636 L310,678 L230,636 Z" class="gate"/>
+  <text x="310" y="631" class="lbl" text-anchor="middle">PATH 3</text>
+  <text x="310" y="644" class="tw" text-anchor="middle">score ≥ 80 ?</text>
+
+  <rect x="45" y="712" width="215" height="62" rx="5" class="agent"/>
+  <text x="152" y="733" class="tb" text-anchor="middle">strategic_predictor</text>
+  <text x="152" y="749" class="ts" text-anchor="middle">Tactical &amp; Strategic Predictor</text>
+  <text x="152" y="765" class="ts" text-anchor="middle">敌方战术战略预判专员</text>
+
+  <rect x="325" y="712" width="205" height="62" rx="5" class="agent"/>
+  <text x="427" y="733" class="tb" text-anchor="middle">standard_defense</text>
+  <text x="427" y="749" class="ts" text-anchor="middle">Standard Defense Posture</text>
+  <text x="427" y="765" class="ts" text-anchor="middle">routine hardening (ELSE)</text>
+
+  <rect x="200" y="812" width="220" height="48" rx="5" class="bx"/>
+  <text x="310" y="831" class="tb" text-anchor="middle">self_evaluation</text>
+  <text x="310" y="847" class="ts" text-anchor="middle">adversarial review vs. brief</text>
+
+  <path d="M310,866 L386,906 L310,946 L234,906 Z" class="gate"/>
+  <text x="310" y="901" class="lbl" text-anchor="middle">PATH 4</text>
+  <text x="310" y="914" class="tw" text-anchor="middle">verdict?</text>
+
+  <rect x="210" y="975" width="200" height="46" rx="5" class="bx"/>
+  <text x="310" y="994" class="tb" text-anchor="middle">synthesise</text>
+  <text x="310" y="1010" class="ts" text-anchor="middle">FULL_ASSESSMENT</text>
+
+  <rect x="460" y="975" width="195" height="46" rx="5" class="fb"/>
+  <text x="557" y="994" class="tb" text-anchor="middle">fallback</text>
+  <text x="557" y="1010" class="ts" text-anchor="middle">risk warning + PARTIAL</text>
+
+  <rect x="225" y="1052" width="170" height="42" rx="21" class="term"/>
+  <text x="310" y="1078" class="t" text-anchor="middle">Mission product</text>
+
+  <path d="M310,70 V100" class="ln"/>
+  <path d="M310,140 V162" class="ln"/>
+  <path d="M280,220 V240 H150 V262" class="lnw"/>
+  <path d="M340,220 V240 H395 V262" class="lnw"/>
+  <path d="M445,191 H540 V340 H400 V362" class="lnw"/>
+  <text x="548" y="262" class="lbl">PATH 1</text>
+  <text x="548" y="276" class="tw">dispatch gate</text>
+  <text x="548" y="290" class="tw">no media modality</text>
+  <text x="112" y="245" class="lbl">PATH 1</text>
+  
+
+  <path d="M150,320 V342 H240 V362" class="ln"/>
+  <path d="M395,320 V342 H380 V362" class="ln"/>
+  <path d="M310,424 V434" class="ln"/>
+  <path d="M310,510 V542" class="ln"/>
+  <text x="322" y="532" class="ts">healthy</text>
+  <path d="M382,472 H557 V975" class="lnr"/>
+  <text x="392" y="464" class="tw">fatal error / deadline breach</text>
+  <path d="M310,588 V594" class="ln"/>
+  <path d="M230,636 H152 V712" class="ln"/>
+  <text x="152" y="700" class="ts" text-anchor="middle">YES — escalate</text>
+  <path d="M390,636 H427 V712" class="ln"/>
+  <text x="437" y="700" class="ts">NO</text>
+  <path d="M152,774 V794 H250 V812" class="ln"/>
+  <path d="M427,774 V794 H370 V812" class="ln"/>
+  <path d="M310,860 V866" class="ln"/>
+  <path d="M310,946 V975" class="ln"/>
+  <text x="322" y="965" class="ts">ACCEPT</text>
+  <path d="M234,906 H25 V565 H205" class="lnw"/>
+  <text x="32" y="624" class="lbl">REFINE</text>
+  <text x="32" y="638" class="tw">(budget left)</text>
+  <path d="M386,906 H420 V998 H460" class="lnr"/>
+  <text x="396" y="962" class="tw">fatal</text>
+  <path d="M310,1021 V1052" class="ln"/>
+  <path d="M557,1021 V1071 H397" class="ln"/>
+
+  <rect x="690" y="170" width="290" height="520" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.6"/>
+  <text x="835" y="196" class="tb" text-anchor="middle">SHARED STATE — MissionState</text>
+  <text x="835" y="212" class="ts" text-anchor="middle">the blackboard every node reads/writes</text>
+  <line x1="706" y1="224" x2="964" y2="224" stroke="#cbd5e1"/>
+  <text x="706" y="246" class="ts">run_id · started_at · raw_input</text>
+  <text x="706" y="264" class="ts">evidence_refs</text>
+  <text x="706" y="288" class="ts">route_decision {mode, intent,</text>
+  <text x="706" y="303" class="ts">    selected_agents, confidence}</text>
+  <text x="706" y="327" class="ts" font-weight="700">agent_outputs</text>
+  <text x="706" y="342" class="ts">    reducer: merge_dicts()</text>
+  <text x="706" y="357" class="ts">    — concurrent branches merge,</text>
+  <text x="706" y="372" class="ts">      never overwrite each other</text>
+  <text x="706" y="396" class="ts">threat_score · threat_band</text>
+  <text x="706" y="414" class="ts">escalation_path</text>
+  <text x="706" y="438" class="ts">evaluation · refinement_count</text>
+  <text x="706" y="453" class="ts">    — bounded loop guard</text>
+  <text x="706" y="477" class="ts" font-weight="700">warnings · errors · trace</text>
+  <text x="706" y="492" class="ts">    reducer: append_lists()</text>
+  <text x="706" y="516" class="ts">fallback_triggered · final_report</text>
+  <line x1="706" y1="536" x2="964" y2="536" stroke="#cbd5e1"/>
+  <text x="706" y="558" class="ts" font-weight="700">Loop / exhaustion guards</text>
+  <text x="706" y="576" class="ts">1. recursion_limit = 24 super-steps</text>
+  <text x="706" y="594" class="ts">2. max_refinement_loops = 2</text>
+  <text x="706" y="612" class="ts">3. mission deadline = 90 s</text>
+  <text x="706" y="636" class="ts" font-weight="700">LLM budget (brief caps)</text>
+  <text x="706" y="654" class="ts">timeout 25 s (clamped ≤ 30 s)</text>
+  <text x="706" y="672" class="ts">retries 2 (clamped ≤ 3)</text>
+
+  <rect x="690" y="710" width="290" height="250" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.6"/>
+  <text x="835" y="734" class="tb" text-anchor="middle">LEGEND</text>
+  <rect x="706" y="748" width="26" height="16" rx="3" class="agent"/>
+  <text x="740" y="761" class="ts">LLM-backed agent node</text>
+  <rect x="706" y="774" width="26" height="16" rx="3" class="fuse"/>
+  <text x="740" y="787" class="ts">fusion point (dependency anchor)</text>
+  <path d="M719,800 L732,808 L719,816 L706,808 Z" class="gate"/>
+  <text x="740" y="813" class="ts">conditional edge (routing path)</text>
+  <rect x="706" y="826" width="26" height="16" rx="3" class="fb"/>
+  <text x="740" y="839" class="ts">fallback / degraded output</text>
+  <rect x="706" y="852" width="26" height="16" rx="3" class="bx"/>
+  <text x="740" y="865" class="ts">deterministic (no LLM) node</text>
+  <line x1="706" y1="886" x2="726" y2="886" stroke="#b45309" stroke-width="1.6" stroke-dasharray="6 3"/>
+  <text x="740" y="890" class="ts">conditional / dynamic transition</text>
+  <line x1="706" y1="908" x2="726" y2="908" stroke="#334155" stroke-width="1.6"/>
+  <text x="740" y="912" class="ts">unconditional edge</text>
+  <text x="706" y="938" class="ts">Pattern: hierarchical supervisor over</text>
+  <text x="706" y="952" class="ts">a shared-state blackboard.</text>
+</svg>

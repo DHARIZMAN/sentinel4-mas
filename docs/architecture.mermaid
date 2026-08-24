@@ -1,0 +1,69 @@
+flowchart TD
+    START([Operator incident brief]) --> ING[ingest]
+    ING --> RTR{{"router
+DYNAMIC semantic routing
+static keyword fallback"}}
+
+    RTR -.->|PATH 1: dispatch gate| AUD["audio_analyst
+Deepfake Audio Analysis Specialist
+虚假语音识别专员"]
+    RTR -.->|PATH 1: dispatch gate| VID["video_detector
+Manipulated Video Stream Detector
+流视频编辑检测专员"]
+    RTR -.->|no media modality present| CYB
+
+    AUD --> CYB["cyber_coordinator
+Cyber Offense/Defense Coordinator
+网络攻防专员
+FUSION POINT - verifies attack vector"]
+    VID --> CYB
+
+    CYB -->|"PATH 2: health gate
+fatal error / deadline / degraded fusion"| FB[["fallback
+RISK WARNING + partial response
+风险提示和退让策略"]]
+    CYB -->|healthy| FUS["threat_fusion
+confidence-weighted score
+degraded reports excluded"]
+
+    FUS --> EG{"PATH 3: escalation gate
+threat_score >= 80 ?"}
+    EG -->|YES| SP["strategic_predictor
+Tactical & Strategic Predictor
+敌方战术战略预判及应对策略设计专员"]
+    EG -->|NO| SD["standard_defense
+routine hardening only"]
+
+    SP --> SE["self_evaluation
+adversarial review vs original brief"]
+    SD --> SE
+
+    SE -->|"PATH 4: REFINE
++ loop budget remaining"| FUS
+    SE -->|ACCEPT| SYN["synthesise
+FULL_ASSESSMENT"]
+    SE -->|fatal error| FB
+
+    SYN --> DONE([Mission product])
+    FB --> DONE
+
+    subgraph BB["Shared blackboard - MissionState"]
+        direction LR
+        S1["agent_outputs (merge reducer)"]
+        S2["threat_score / threat_band"]
+        S3["errors / warnings / trace"]
+        S4["refinement_count (loop guard)"]
+    end
+
+    subgraph TL["Tool registry - hallucination guard"]
+        direction LR
+        T1[scan_audio_artifacts]
+        T2[check_frame_consistency]
+        T3[query_threat_intel]
+        T4[parse_indicators]
+        T5[read_evidence_file]
+    end
+
+    AUD -.uses.-> T1
+    VID -.uses.-> T2
+    CYB -.uses.-> T3

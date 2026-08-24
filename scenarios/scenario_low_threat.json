@@ -1,0 +1,7 @@
+{
+  "name": "Routine advisory - sub-threshold",
+  "description": "Deliberately benign scenario. Demonstrates the ELSE side of the escalation gate: Standard Defense, no predictive planning.",
+  "expected_path": "standard_defense",
+  "evidence_refs": [],
+  "brief": "A marketing intern reported that an internal email asking them to confirm attendance at next Tuesday's all-hands looked slightly unusual: the sender's signature block used an older logo. The sending address is internal and passes DMARC. No links, no attachments, no requests for credentials or payment. Nothing anomalous appears in the mail gateway logs. Advise on proportionate handling."
+}

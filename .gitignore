@@ -1,0 +1,22 @@
+# --- secrets (assessment requirement: API keys must NOT reach the repo) -----
+.env
+*.key
+secrets/
+
+# --- python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# --- environments (excluded from the submitted .zip as well) ----------------
+venv/
+.venv/
+env/
+node_modules/
+
+# --- run artefacts ----------------------------------------------------------
+runs/
+*.log
+.DS_Store

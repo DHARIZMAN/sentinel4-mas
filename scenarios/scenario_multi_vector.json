@@ -1,0 +1,7 @@
+{
+  "name": "Multi-vector Entity incursion",
+  "description": "Full-stack scenario: synthetic audio, manipulated video and live network intrusion. Exercises the escalated branch.",
+  "expected_path": "strategic_predictor",
+  "evidence_refs": ["cfo_voicemail_0214.wav", "serverroom_cctv_0214.mp4"],
+  "brief": "At 02:14 the finance duty officer received a voicemail from a caller with the CFO's voice authorising an emergency wire transfer of GBP 2.4M to a new beneficiary, citing an acquisition under embargo. Twelve minutes later a video clip circulated internally appearing to show the CFO in the server room confirming the instruction. Simultaneously the SOC observed outbound HTTPS beaconing to 185.220.101.44 at 300-second intervals from two workstations, and credential harvesting attempts against veridian-support.top. The edge firewall is unpatched against CVE-2024-3400. Helpdesk records show an MFA reset was performed for two privileged accounts following a phone request. Suspected zero-day exploitation with lateral movement and staged exfiltration. Attribute, contain and predict the adversary's next move."
+}

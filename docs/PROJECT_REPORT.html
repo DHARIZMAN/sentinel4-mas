@@ -1,0 +1,1458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SENTINEL-4 — MAS Project Report</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Segoe UI", Calibri, Helvetica, Arial, sans-serif;
+    font-size: 10.5pt; line-height: 1.5; color: #111827; margin: 0;
+  }
+  h1,h2,h3,h4 { color: #1e1b4b; line-height: 1.25; margin: 0 0 .4em; }
+  h1 { font-size: 20pt; }
+  h2 { font-size: 15pt; margin-top: 1.6em; padding-bottom: .25em; border-bottom: 2px solid #4338ca; }
+  h3 { font-size: 12pt; margin-top: 1.3em; color: #3730a3; }
+  h4 { font-size: 10.5pt; margin-top: 1em; color: #374151; }
+  p { margin: 0 0 .7em; text-align: justify; }
+  ul, ol { margin: 0 0 .8em; padding-left: 1.3em; }
+  li { margin-bottom: .3em; }
+  code, .mono { font-family: Consolas, "Courier New", monospace; font-size: 9pt; }
+  code { background: #f1f5f9; padding: .5px 3px; border-radius: 3px; }
+  pre {
+    background: #0f172a; color: #e2e8f0; padding: 10px 12px; border-radius: 5px;
+    font-family: Consolas, "Courier New", monospace; font-size: 8.2pt; line-height: 1.45;
+    overflow-x: auto; white-space: pre-wrap; word-break: break-word; margin: 0 0 .8em;
+  }
+  pre.light { background: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; }
+  table { width: 100%; border-collapse: collapse; margin: 0 0 1em; font-size: 9.2pt; }
+  th, td { border: 1px solid #cbd5e1; padding: 5px 7px; text-align: left; vertical-align: top; }
+  th { background: #e0e7ff; color: #1e1b4b; font-weight: 700; }
+  tbody tr:nth-child(even) { background: #f8fafc; }
+  .pagebreak { page-break-before: always; }
+  .avoid { page-break-inside: avoid; }
+  .cover { text-align: center; padding-top: 22mm; page-break-after: always; }
+  .cover .inst { font-size: 13pt; font-weight: 700; letter-spacing: .5px; color: #1e1b4b; }
+  .cover .course { font-size: 11pt; margin-top: 4px; color: #374151; }
+  .cover .rule { border: 0; border-top: 3px solid #4338ca; width: 70%; margin: 16mm auto 10mm; }
+  .cover .title { font-size: 26pt; font-weight: 800; color: #1e1b4b; letter-spacing: 1px; }
+  .cover .sub { font-size: 13pt; color: #3730a3; margin-top: 8px; font-weight: 600; }
+  .cover .theme { font-size: 10.5pt; margin-top: 14mm; }
+  .badge { display: inline-block; background: #e0e7ff; border: 1px solid #4338ca; color: #1e1b4b;
+           padding: 5px 14px; border-radius: 20px; font-size: 10pt; font-weight: 600; }
+  .fill { background: #fef9c3; border-bottom: 1px solid #a16207; padding: 0 4px; }
+  .note { background: #f1f5f9; border-left: 4px solid #4338ca; padding: 8px 12px; margin: 0 0 1em; }
+  .warn { background: #fef3c7; border-left: 4px solid #b45309; padding: 8px 12px; margin: 0 0 1em; }
+  .ok   { background: #ecfdf5; border-left: 4px solid #047857; padding: 8px 12px; margin: 0 0 1em; }
+  .center { text-align: center; }
+  .small { font-size: 9pt; color: #4b5563; }
+  figure { margin: 0 0 1em; }
+  figcaption { font-size: 8.8pt; color: #4b5563; text-align: center; margin-top: 5px; }
+  .toc a { color: #1e1b4b; text-decoration: none; }
+  .toc td:last-child { text-align: right; }
+  .sig td { height: 46px; }
+  .kv { width: 78%; margin: 0 auto; font-size: 11pt; }
+  .kv td { border: 0; padding: 5px 8px; }
+  .kv td:first-child { text-align: right; font-weight: 600; color: #374151; width: 42%; }
+  .kv td:last-child { text-align: left; }
+  .arch svg { width: 100%; height: auto; }
+</style>
+</head>
+<body>
+
+<!-- ============================ B1 COVER PAGE ============================ -->
+<section class="cover">
+  <div class="inst">MALAYSIAN INSTITUTE OF INFORMATION TECHNOLOGY</div>
+  <div class="course">Universiti Kuala Lumpur</div>
+  <div class="course"><strong>ISB 46703 — Principles of Artificial Intelligence</strong></div>
+  <div class="course">Comprehensive Mini-Project: Multi-Agent System Design (25%)</div>
+
+  <hr class="rule">
+
+  <div class="title">PROJECT SENTINEL-4</div>
+  <div class="sub">A Multi-Agent Digital Countermeasure Unit<br>Against the Rogue AI Threat “The Entity”</div>
+
+  <div class="theme">
+    <span class="badge">Theme / Domain: Cyber Defence &amp; Synthetic-Media Threat Analysis</span>
+  </div>
+
+  <p class="small" style="margin-top:6mm; text-align:center;">
+    Orchestration framework: <strong>LangGraph</strong> &nbsp;·&nbsp;
+    Pattern: <strong>Hierarchical supervisor over a shared-state blackboard</strong><br>
+    5 specialised agents &nbsp;·&nbsp; 5 custom tools &nbsp;·&nbsp; 4 conditional routing paths
+  </p>
+
+  <table class="kv" style="margin-top:12mm;">
+    <tr><td>Group Leader:</td><td><span class="fill">[LEADER FULL NAME]</span></td></tr>
+    <tr><td>Leader Student ID:</td><td><span class="fill">[LEADER STUDENT ID]</span></td></tr>
+    <tr><td>Group Member 2:</td><td><span class="fill">[NAME / STUDENT ID]</span></td></tr>
+    <tr><td>Group Member 3:</td><td><span class="fill">[NAME / STUDENT ID]</span></td></tr>
+    <tr><td>Group Member 4:</td><td><span class="fill">[NAME / STUDENT ID]</span></td></tr>
+    <tr><td>Lecturer:</td><td><span class="fill">[LECTURER NAME]</span></td></tr>
+    <tr><td>Submission Date:</td><td><span class="fill">[DD MONTH YYYY]</span> (Week 7)</td></tr>
+    <tr><td>Repository:</td><td><span class="fill">[GITHUB REPOSITORY URL]</span></td></tr>
+  </table>
+</section>
+
+<!-- ============================ TOC ============================ -->
+<section>
+<h1>Table of Contents</h1>
+<table class="toc">
+  <tr><td>1. Project Overview</td><td>3</td></tr>
+  <tr><td>2. System Architecture &amp; State Management</td><td>4</td></tr>
+  <tr><td>3. Agent Role &amp; Prompt Design Log</td><td>7</td></tr>
+  <tr><td>4. Workflow &amp; Communication Strategy</td><td>11</td></tr>
+  <tr><td>5. Robustness &amp; Fallback Analysis</td><td>13</td></tr>
+  <tr><td>6. Evaluation Results</td><td>16</td></tr>
+  <tr><td>7. AI Usage &amp; Code Generation Log</td><td>18</td></tr>
+  <tr><td>8. Repository Link &amp; User Guide</td><td>20</td></tr>
+  <tr><td>9. Limitations &amp; Future Work</td><td>22</td></tr>
+  <tr><td>10. Plagiarism / AI Declaration</td><td>23</td></tr>
+  <tr><td>11. References</td><td>24</td></tr>
+</table>
+
+<div class="note">
+<strong>How to read this report.</strong> Every architectural claim in this document is anchored to a
+specific file and line in the submitted source code, written as <code>file.py:line</code>. Every
+performance figure in Section 5 and 6 was produced by executing the submitted code; the commands
+that reproduce each figure are given alongside it.
+</div>
+</section>
+
+<!-- ============================ 1. OVERVIEW ============================ -->
+<section class="pagebreak">
+<h2>1. Project Overview</h2>
+
+<h3>1.1 Problem framing</h3>
+<p>
+An adversary that generates synthetic media and executes network intrusion <em>simultaneously</em>
+defeats the traditional Security Operations Centre model, in which a human analyst serially consults
+one specialist tool after another. By the time a voice-cloning verdict returns, the credential
+obtained by that cloned voice has already been used. The defensive response has to be as parallel and
+as automated as the attack.
+</p>
+<p>
+Project <strong>SENTINEL-4</strong> models that response. It is a Multi-Agent System that receives a
+free-text incident brief from a duty operator, dynamically decides which forensic specialists the
+incident actually requires, runs the independent ones concurrently, fuses their findings into a single
+verified attack vector, and — only when the fused severity warrants it — commissions a predictive
+counter-strategy. The adversary is codenamed <strong>“The Entity”</strong>, the rogue autonomous system
+named in the assessment brief.
+</p>
+
+<h3>1.2 System at a glance</h3>
+<table>
+<thead><tr><th style="width:32%">Property</th><th>Implementation</th></tr></thead>
+<tbody>
+<tr><td>Orchestration framework</td><td>LangGraph <code>StateGraph</code> (<code>src/graph.py:32</code>, compiled at <code>src/graph.py:302</code>)</td></tr>
+<tr><td>Theme / domain</td><td>Digital countermeasure unit vs. rogue AI “The Entity” (recommended theme)</td></tr>
+<tr><td>Collaboration pattern</td><td>Hierarchical supervisor over a shared-state blackboard</td></tr>
+<tr><td>Router type</td><td><strong>DYNAMIC</strong> — LLM-driven semantic intent classification, with a deterministic static keyword fallback</td></tr>
+<tr><td>Specialised agents</td><td>5 (assessment minimum: 3)</td></tr>
+<tr><td>Custom tools</td><td>5 (assessment minimum: 3)</td></tr>
+<tr><td>Conditional routing paths</td><td>4 (assessment minimum: 2)</td></tr>
+<tr><td>LLM request timeout</td><td>25 s default, hard-clamped to ≤ 30 s (<code>src/config.py:240</code>)</td></tr>
+<tr><td>LLM max retries</td><td>2 default, hard-clamped to ≤ 3 (<code>src/config.py:241</code>)</td></tr>
+<tr><td>Exception handlers</td><td>18 handlers across 14 distinct exception types (minimum: 3)</td></tr>
+<tr><td>Docstring coverage</td><td>100% — 173 of 173 modules, classes, methods and functions</td></tr>
+<tr><td>Human-review annotations</td><td>13 <code>[HUMAN-REVIEW]</code> comments (minimum: 5)</td></tr>
+<tr><td>Automated tests</td><td>35, all passing in 4.79 s</td></tr>
+<tr><td>Offline operation</td><td>Deterministic mock engine — the whole system runs and is gradeable with no API key and no network</td></tr>
+</tbody>
+</table>
+
+<h3>1.3 Handling complex, multi-step input</h3>
+<p>
+The system accepts an unstructured operator brief plus an optional list of evidence artefacts. The
+shipped scenario <code>scenarios/scenario_multi_vector.json</code> is an 810-character brief describing
+three simultaneous attack vectors (a synthetic CFO voicemail, manipulated server-room CCTV, and
+outbound C2 beaconing exploiting a named CVE) accompanied by two media artefacts. Processing this
+single input requires the system to take fourteen discrete reasoning steps across six agents,
+including one self-triggered refinement loop, before it releases a product.
+</p>
+
+<h3>1.4 Repository structure</h3>
+<pre class="light">entity_mas/
+├── main.py                  CLI entry point (scenario / ad-hoc brief / JSON output)
+├── demo_fallback.py         Live failure-injection demonstration (4 failure classes)
+├── audit_requirements.py    Self-audit of the code against the assessment rubric
+├── requirements.txt         Pinned runtime dependencies
+├── Dockerfile               Reproducible container runtime
+├── .env.example             Configuration template (no secrets)
+├── .gitignore               Excludes .env, venv/, __pycache__/
+├── src/
+│   ├── config.py            Settings + embedding-model misrouting guard
+│   ├── state.py             MissionState blackboard + concurrency reducers
+│   ├── llm_client.py        Timeouts, retries, JSON repair, offline mock engine
+│   ├── router.py            DYNAMIC semantic router + static fallback
+│   ├── graph.py             StateGraph assembly, 4 conditional routing paths
+│   ├── evaluation.py        Threat fusion + adversarial self-evaluation
+│   ├── fallback.py          Risk warning + partial-response generator
+│   ├── agents/              Abstract base + 4 specialists + standard defense
+│   └── tools/               Registry + 5 custom tools
+├── scenarios/               3 runnable demonstration scenarios
+├── evidence/                Sandboxed artefacts for read_evidence_file
+├── docs/                    Architecture diagram + this report
+└── tests/                   35 tests: routing, tools, fallback latency</pre>
+</section>
+
+<!-- ============================ 2. ARCHITECTURE ============================ -->
+<section class="pagebreak">
+<h2>2. System Architecture &amp; State Management</h2>
+
+<h3>2.1 Architecture diagram</h3>
+<figure class="arch">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1120" width="1000" height="1120" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <style>
+      .bx{fill:#f8fafc;stroke:#334155;stroke-width:1.6}
+      .agent{fill:#eef2ff;stroke:#4338ca;stroke-width:1.8}
+      .fuse{fill:#e0e7ff;stroke:#3730a3;stroke-width:2.4}
+      .gate{fill:#fef3c7;stroke:#b45309;stroke-width:1.8}
+      .fb{fill:#fee2e2;stroke:#b91c1c;stroke-width:2}
+      .term{fill:#e2e8f0;stroke:#334155;stroke-width:1.6}
+      .t{font-size:13px;fill:#0f172a}
+      .tb{font-size:13.5px;font-weight:700;fill:#0f172a}
+      .ts{font-size:10.5px;fill:#475569}
+      .tw{font-size:11px;fill:#7c2d12}
+      .lbl{font-size:10.5px;font-weight:700;fill:#b45309}
+      .ln{stroke:#334155;stroke-width:1.6;fill:none;marker-end:url(#ar)}
+      .lnw{stroke:#b45309;stroke-width:1.6;fill:none;marker-end:url(#arw);stroke-dasharray:6 3}
+      .lnr{stroke:#b91c1c;stroke-width:1.6;fill:none;marker-end:url(#arr)}
+    </style>
+  </defs>
+
+  <text x="20" y="22" class="tb" font-size="16">SENTINEL-4 — MAS Execution Graph (LangGraph StateGraph)</text>
+
+  <rect x="210" y="28" width="200" height="42" rx="21" class="term"/>
+  <text x="310" y="54" class="t" text-anchor="middle">Operator incident brief</text>
+
+  <rect x="225" y="100" width="170" height="40" rx="5" class="bx"/>
+  <text x="310" y="125" class="t" text-anchor="middle">ingest</text>
+
+  <rect x="175" y="162" width="270" height="58" rx="5" class="agent"/>
+  <text x="310" y="184" class="tb" text-anchor="middle">router — MissionRouter</text>
+  <text x="310" y="200" class="ts" text-anchor="middle">DYNAMIC semantic classification</text>
+  <text x="310" y="214" class="ts" text-anchor="middle">degrades to STATIC keyword rules</text>
+
+  <rect x="45" y="262" width="210" height="58" rx="5" class="agent"/>
+  <text x="150" y="283" class="tb" text-anchor="middle">audio_analyst</text>
+  <text x="150" y="299" class="ts" text-anchor="middle">Deepfake Audio Specialist</text>
+  <text x="150" y="313" class="ts" text-anchor="middle">虚假语音识别专员</text>
+
+  <rect x="290" y="262" width="210" height="58" rx="5" class="agent"/>
+  <text x="395" y="283" class="tb" text-anchor="middle">video_detector</text>
+  <text x="395" y="299" class="ts" text-anchor="middle">Manipulated Video Detector</text>
+  <text x="395" y="313" class="ts" text-anchor="middle">流视频编辑检测专员</text>
+
+  <rect x="130" y="362" width="360" height="62" rx="5" class="fuse"/>
+  <text x="310" y="383" class="tb" text-anchor="middle">cyber_coordinator — FUSION POINT</text>
+  <text x="310" y="399" class="ts" text-anchor="middle">Cyber Offense/Defense Coordinator · 网络攻防专员</text>
+  <text x="310" y="415" class="ts" text-anchor="middle">only agent that may set vector_verified = true</text>
+
+  <path d="M310,434 L382,472 L310,510 L238,472 Z" class="gate"/>
+  <text x="310" y="469" class="lbl" text-anchor="middle">PATH 2</text>
+  <text x="310" y="482" class="tw" text-anchor="middle">health gate</text>
+
+  <rect x="205" y="542" width="210" height="46" rx="5" class="bx"/>
+  <text x="310" y="561" class="tb" text-anchor="middle">threat_fusion</text>
+  <text x="310" y="577" class="ts" text-anchor="middle">confidence-weighted score</text>
+
+  <path d="M310,594 L390,636 L310,678 L230,636 Z" class="gate"/>
+  <text x="310" y="631" class="lbl" text-anchor="middle">PATH 3</text>
+  <text x="310" y="644" class="tw" text-anchor="middle">score ≥ 80 ?</text>
+
+  <rect x="45" y="712" width="215" height="62" rx="5" class="agent"/>
+  <text x="152" y="733" class="tb" text-anchor="middle">strategic_predictor</text>
+  <text x="152" y="749" class="ts" text-anchor="middle">Tactical &amp; Strategic Predictor</text>
+  <text x="152" y="765" class="ts" text-anchor="middle">敌方战术战略预判专员</text>
+
+  <rect x="325" y="712" width="205" height="62" rx="5" class="agent"/>
+  <text x="427" y="733" class="tb" text-anchor="middle">standard_defense</text>
+  <text x="427" y="749" class="ts" text-anchor="middle">Standard Defense Posture</text>
+  <text x="427" y="765" class="ts" text-anchor="middle">routine hardening (ELSE)</text>
+
+  <rect x="200" y="812" width="220" height="48" rx="5" class="bx"/>
+  <text x="310" y="831" class="tb" text-anchor="middle">self_evaluation</text>
+  <text x="310" y="847" class="ts" text-anchor="middle">adversarial review vs. brief</text>
+
+  <path d="M310,866 L386,906 L310,946 L234,906 Z" class="gate"/>
+  <text x="310" y="901" class="lbl" text-anchor="middle">PATH 4</text>
+  <text x="310" y="914" class="tw" text-anchor="middle">verdict?</text>
+
+  <rect x="210" y="975" width="200" height="46" rx="5" class="bx"/>
+  <text x="310" y="994" class="tb" text-anchor="middle">synthesise</text>
+  <text x="310" y="1010" class="ts" text-anchor="middle">FULL_ASSESSMENT</text>
+
+  <rect x="460" y="975" width="195" height="46" rx="5" class="fb"/>
+  <text x="557" y="994" class="tb" text-anchor="middle">fallback</text>
+  <text x="557" y="1010" class="ts" text-anchor="middle">risk warning + PARTIAL</text>
+
+  <rect x="225" y="1052" width="170" height="42" rx="21" class="term"/>
+  <text x="310" y="1078" class="t" text-anchor="middle">Mission product</text>
+
+  <path d="M310,70 V100" class="ln"/>
+  <path d="M310,140 V162" class="ln"/>
+  <path d="M280,220 V240 H150 V262" class="lnw"/>
+  <path d="M340,220 V240 H395 V262" class="lnw"/>
+  <path d="M445,191 H540 V340 H400 V362" class="lnw"/>
+  <text x="548" y="262" class="lbl">PATH 1</text>
+  <text x="548" y="276" class="tw">dispatch gate</text>
+  <text x="548" y="290" class="tw">no media modality</text>
+  <text x="112" y="245" class="lbl">PATH 1</text>
+  
+
+  <path d="M150,320 V342 H240 V362" class="ln"/>
+  <path d="M395,320 V342 H380 V362" class="ln"/>
+  <path d="M310,424 V434" class="ln"/>
+  <path d="M310,510 V542" class="ln"/>
+  <text x="322" y="532" class="ts">healthy</text>
+  <path d="M382,472 H557 V975" class="lnr"/>
+  <text x="392" y="464" class="tw">fatal error / deadline breach</text>
+  <path d="M310,588 V594" class="ln"/>
+  <path d="M230,636 H152 V712" class="ln"/>
+  <text x="152" y="700" class="ts" text-anchor="middle">YES — escalate</text>
+  <path d="M390,636 H427 V712" class="ln"/>
+  <text x="437" y="700" class="ts">NO</text>
+  <path d="M152,774 V794 H250 V812" class="ln"/>
+  <path d="M427,774 V794 H370 V812" class="ln"/>
+  <path d="M310,860 V866" class="ln"/>
+  <path d="M310,946 V975" class="ln"/>
+  <text x="322" y="965" class="ts">ACCEPT</text>
+  <path d="M234,906 H25 V565 H205" class="lnw"/>
+  <text x="32" y="624" class="lbl">REFINE</text>
+  <text x="32" y="638" class="tw">(budget left)</text>
+  <path d="M386,906 H420 V998 H460" class="lnr"/>
+  <text x="396" y="962" class="tw">fatal</text>
+  <path d="M310,1021 V1052" class="ln"/>
+  <path d="M557,1021 V1071 H397" class="ln"/>
+
+  <rect x="690" y="170" width="290" height="520" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.6"/>
+  <text x="835" y="196" class="tb" text-anchor="middle">SHARED STATE — MissionState</text>
+  <text x="835" y="212" class="ts" text-anchor="middle">the blackboard every node reads/writes</text>
+  <line x1="706" y1="224" x2="964" y2="224" stroke="#cbd5e1"/>
+  <text x="706" y="246" class="ts">run_id · started_at · raw_input</text>
+  <text x="706" y="264" class="ts">evidence_refs</text>
+  <text x="706" y="288" class="ts">route_decision {mode, intent,</text>
+  <text x="706" y="303" class="ts">    selected_agents, confidence}</text>
+  <text x="706" y="327" class="ts" font-weight="700">agent_outputs</text>
+  <text x="706" y="342" class="ts">    reducer: merge_dicts()</text>
+  <text x="706" y="357" class="ts">    — concurrent branches merge,</text>
+  <text x="706" y="372" class="ts">      never overwrite each other</text>
+  <text x="706" y="396" class="ts">threat_score · threat_band</text>
+  <text x="706" y="414" class="ts">escalation_path</text>
+  <text x="706" y="438" class="ts">evaluation · refinement_count</text>
+  <text x="706" y="453" class="ts">    — bounded loop guard</text>
+  <text x="706" y="477" class="ts" font-weight="700">warnings · errors · trace</text>
+  <text x="706" y="492" class="ts">    reducer: append_lists()</text>
+  <text x="706" y="516" class="ts">fallback_triggered · final_report</text>
+  <line x1="706" y1="536" x2="964" y2="536" stroke="#cbd5e1"/>
+  <text x="706" y="558" class="ts" font-weight="700">Loop / exhaustion guards</text>
+  <text x="706" y="576" class="ts">1. recursion_limit = 24 super-steps</text>
+  <text x="706" y="594" class="ts">2. max_refinement_loops = 2</text>
+  <text x="706" y="612" class="ts">3. mission deadline = 90 s</text>
+  <text x="706" y="636" class="ts" font-weight="700">LLM budget (brief caps)</text>
+  <text x="706" y="654" class="ts">timeout 25 s (clamped ≤ 30 s)</text>
+  <text x="706" y="672" class="ts">retries 2 (clamped ≤ 3)</text>
+
+  <rect x="690" y="710" width="290" height="250" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.6"/>
+  <text x="835" y="734" class="tb" text-anchor="middle">LEGEND</text>
+  <rect x="706" y="748" width="26" height="16" rx="3" class="agent"/>
+  <text x="740" y="761" class="ts">LLM-backed agent node</text>
+  <rect x="706" y="774" width="26" height="16" rx="3" class="fuse"/>
+  <text x="740" y="787" class="ts">fusion point (dependency anchor)</text>
+  <path d="M719,800 L732,808 L719,816 L706,808 Z" class="gate"/>
+  <text x="740" y="813" class="ts">conditional edge (routing path)</text>
+  <rect x="706" y="826" width="26" height="16" rx="3" class="fb"/>
+  <text x="740" y="839" class="ts">fallback / degraded output</text>
+  <rect x="706" y="852" width="26" height="16" rx="3" class="bx"/>
+  <text x="740" y="865" class="ts">deterministic (no LLM) node</text>
+  <line x1="706" y1="886" x2="726" y2="886" stroke="#b45309" stroke-width="1.6" stroke-dasharray="6 3"/>
+  <text x="740" y="890" class="ts">conditional / dynamic transition</text>
+  <line x1="706" y1="908" x2="726" y2="908" stroke="#334155" stroke-width="1.6"/>
+  <text x="740" y="912" class="ts">unconditional edge</text>
+  <text x="706" y="938" class="ts">Pattern: hierarchical supervisor over</text>
+  <text x="706" y="952" class="ts">a shared-state blackboard.</text>
+</svg>
+
+<figcaption>Figure 1 — SENTINEL-4 execution graph. Agent nodes (indigo), deterministic nodes (grey),
+conditional gates (amber diamonds) and the degraded-output path (red). The right-hand panel documents
+the shared <code>MissionState</code> blackboard, its concurrency reducers, and the three independent
+loop guards. Source: <code>docs/architecture.svg</code>; equivalent Mermaid source in
+<code>docs/architecture.mermaid</code>.</figcaption>
+</figure>
+
+<h3>2.2 Node inventory</h3>
+<table>
+<thead><tr><th>Node</th><th>Type</th><th>Responsibility</th><th>Source</th></tr></thead>
+<tbody>
+<tr><td><code>ingest</code></td><td>Deterministic</td><td>Stamp run ID, record brief size and artefact count</td><td><code>graph.py:98</code></td></tr>
+<tr><td><code>router</code></td><td>LLM</td><td>Semantic intent classification → specialist selection</td><td><code>router.py:145</code></td></tr>
+<tr><td><code>audio_analyst</code></td><td>LLM + tools</td><td>Speech-audio authenticity verdict</td><td><code>agents/audio_analyst.py:23</code></td></tr>
+<tr><td><code>video_detector</code></td><td>LLM + tools</td><td>Video manipulation verdict</td><td><code>agents/video_detector.py:140</code></td></tr>
+<tr><td><code>cyber_coordinator</code></td><td>LLM + tools</td><td>Evidence fusion, attack-vector verification, containment</td><td><code>agents/cyber_coordinator.py:18</code></td></tr>
+<tr><td><code>threat_fusion</code></td><td>Deterministic</td><td>Confidence-weighted fusion of specialist scores</td><td><code>evaluation.py:116</code></td></tr>
+<tr><td><code>escalation_gate</code></td><td>Deterministic</td><td>Record which branch the threat gate selected</td><td><code>graph.py:249</code></td></tr>
+<tr><td><code>strategic_predictor</code></td><td>LLM + tools</td><td>Adversary next-moves + pre-positioned counter-strategy</td><td><code>agents/strategic_predictor.py:139</code></td></tr>
+<tr><td><code>standard_defense</code></td><td>LLM</td><td>Proportionate routine hardening (the ELSE branch)</td><td><code>agents/standard_defense.py:243</code></td></tr>
+<tr><td><code>self_evaluation</code></td><td>LLM</td><td>Adversarial review of the draft against the original brief</td><td><code>evaluation.py:177</code></td></tr>
+<tr><td><code>synthesise</code></td><td>Deterministic</td><td>Assemble the full assessment product</td><td><code>graph.py:149</code></td></tr>
+<tr><td><code>fallback</code></td><td>Deterministic</td><td>Risk warning + partial response from salvaged data</td><td><code>fallback.py:428</code></td></tr>
+</tbody>
+</table>
+
+<h3>2.3 State management — the blackboard</h3>
+<p>
+All twelve nodes read from and write to one <code>MissionState</code> TypedDict
+(<code>src/state.py:59</code>). Choosing an explicit shared state rather than point-to-point message
+passing is the decision that makes two required behaviours possible at all. First, a late agent (the
+Strategic Predictor) can consult the findings of <em>every</em> earlier agent without those agents
+knowing it exists. Second, the fallback handler can assemble a partial answer from whatever happens to
+be on the board at the moment of failure — there is no message queue to reconstruct.
+</p>
+
+<h4>2.3.1 Concurrency reducers</h4>
+<p>
+LangGraph applies a <em>reducer</em> when two branches write the same state key within one super-step.
+Because the Audio and Video specialists are dispatched concurrently and both write to
+<code>agent_outputs</code>, the default last-write-wins behaviour silently destroyed one of the two
+reports. The system therefore declares explicit reducers:
+</p>
+<pre class="light">agent_outputs : Annotated[dict, merge_dicts]   # state.py:94  — union, right wins on key collision
+activated_agents, warnings, errors, trace :
+                Annotated[list, append_lists]  # state.py:92,103,104,108 — concatenate, never replace</pre>
+<div class="warn">
+<strong>Design intervention.</strong> <code>merge_dicts</code> (<code>state.py:18</code>) is the single
+most important correctness fix in the state layer. Without it, whichever media specialist finished
+second erased the other's report, and the fused threat score was computed from half the evidence. The
+rationale is recorded in the source at <code>state.py:33–37</code>.
+</div>
+
+<h4>2.3.2 State channels</h4>
+<table>
+<thead><tr><th style="width:26%">Channel</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>run_id</code>, <code>started_at</code></td><td>Mission identity and the monotonic clock reading all elapsed-time and fallback-latency measurements derive from</td></tr>
+<tr><td><code>raw_input</code>, <code>evidence_refs</code></td><td>The operator's original brief and artefact list — deliberately never mutated, so the self-evaluator can grade against the true original</td></tr>
+<tr><td><code>route_decision</code></td><td>Router verdict: mode, intent, selected agents, confidence, rationale</td></tr>
+<tr><td><code>agent_outputs</code></td><td>Each specialist's validated JSON report, keyed by agent name</td></tr>
+<tr><td><code>threat_score</code>, <code>threat_band</code></td><td>The unit's authoritative fused severity and its categorical band</td></tr>
+<tr><td><code>escalation_path</code></td><td>Which branch the threat gate selected — stored as state, not merely implied by which node ran</td></tr>
+<tr><td><code>evaluation</code>, <code>refinement_count</code></td><td>Self-critique verdict and the bounded loop counter</td></tr>
+<tr><td><code>warnings</code>, <code>errors</code></td><td>Structured advisories and faults; an entry with <code>fatal=True</code> diverts the graph to fallback</td></tr>
+<tr><td><code>fallback_triggered</code>, <code>final_report</code></td><td>The mission product and whether it was degraded</td></tr>
+<tr><td><code>trace</code></td><td>Ordered execution log — the artefact shown during the live demonstration</td></tr>
+</tbody>
+</table>
+
+<h3 class="pagebreak">2.4 The router is DYNAMIC — explicit declaration</h3>
+<div class="ok">
+<strong>Declaration required by the assessment brief (A2.2):</strong> the SENTINEL-4 router is
+<strong>DYNAMIC</strong>. It performs LLM-driven semantic intent classification over the raw operator
+brief and selects a specialist set from the inferred intent. It is <em>not</em> a keyword matcher.
+This declaration appears in the source itself at <code>src/router.py:3–13</code>.
+</div>
+<p>
+It is dynamic <em>with a deterministic safety net</em>. If the semantic pass fails — endpoint
+unreachable, unparseable reply, contract breach, or a selection the router knows to be unsafe —
+control falls to a static keyword matcher (<code>static_route</code>, <code>router.py:88</code>). The
+system therefore keeps the discriminating power of semantic routing without inheriting its single
+point of failure. Critically, the mode actually used is written to the blackboard as
+<code>DYNAMIC_SEMANTIC</code> or <code>STATIC_FALLBACK</code> and printed in every run, so the operator
+is never misled about which mechanism produced the dispatch.
+</p>
+
+<h4>2.4.1 Hallucinated agent-name defence</h4>
+<p>
+A semantic router can invent a specialist. <code>sanitise()</code> (<code>router.py:119</code>)
+intersects the model's proposal against the frozen set <code>DISPATCHABLE_AGENTS</code> and
+unconditionally re-adds <code>cyber_coordinator</code>, because the escalation gate and the predictor
+both depend on it. A discarded name raises a structured warning rather than a
+<code>KeyError</code> deep inside dispatch.
+</p>
+
+<h3>2.5 Model-misrouting guard (A2.3)</h3>
+<p>
+The assessment brief specifically warns that inference calls must not be misrouted to embedding models
+such as <code>text-embedding-nomic-embed-text-v1.5</code>. SENTINEL-4 treats this as a configuration
+error to be caught before startup, not a runtime surprise. <code>ModelRegistry</code>
+(<code>config.py:60</code>) validates the chat slot in <code>__post_init__</code> against a table of
+embedding-name markers (<code>embed</code>, <code>nomic-embed</code>, <code>text-embedding</code>,
+<code>bge-</code>, <code>gte-</code>, <code>e5-</code>) and refuses to construct. <code>resolve("chat")</code>
+re-checks on every outbound call at <code>llm_client.py:460</code>.
+</p>
+<p><strong>Verification.</strong> Deliberately misconfiguring the chat slot produces:</p>
+<pre>$ MAS_PROVIDER=local MAS_LOCAL_CHAT_MODEL=text-embedding-nomic-embed-text-v1.5 python main.py --brief "test"
+
+Configuration error: Refusing to start: 'text-embedding-nomic-embed-text-v1.5' is configured
+as the chat model but its name identifies it as an embedding model.
+Set MAS_*_CHAT_MODEL to an instruct/chat model id.</pre>
+<p class="small">Regression-tested at <code>tests/test_routing.py:75</code>.</p>
+
+<h3>2.6 The four conditional routing paths</h3>
+<table>
+<thead><tr><th style="width:8%">#</th><th style="width:20%">Gate</th><th>Condition</th><th style="width:20%">Source</th></tr></thead>
+<tbody>
+<tr><td><strong>1</strong></td><td><code>dispatch_gate</code></td><td>Router intent determines <em>which</em> media specialists activate; if no media modality is present, fan directly to the coordinator</td><td><code>graph.py:194</code></td></tr>
+<tr><td><strong>2</strong></td><td><code>health_gate</code></td><td>IF a fatal error exists, OR the 90 s mission deadline is breached, OR the fusion agent itself is <code>DEGRADED</code> → <code>fallback</code>; ELSE → <code>threat_fusion</code></td><td><code>graph.py:210</code></td></tr>
+<tr><td><strong>3</strong></td><td><code>escalation_gate</code></td><td><strong>IF fused threat_score ≥ 80 THEN <code>strategic_predictor</code> ELSE <code>standard_defense</code></strong> — the brief's worked example, implemented literally</td><td><code>graph.py:232</code></td></tr>
+<tr><td><strong>4</strong></td><td><code>evaluation_gate</code></td><td>REFINE with loop budget remaining and deadline intact → back to <code>threat_fusion</code>; ACCEPT → <code>synthesise</code>; fatal error → <code>fallback</code></td><td><code>graph.py:273</code></td></tr>
+</tbody>
+</table>
+<p class="small">
+Both branches of Path 3 are exercised by the shipped scenarios and asserted in
+<code>tests/test_routing.py:101</code>. Path 1 producing genuinely different agent sets for different
+briefs is demonstrated in Section 6.1.
+</p>
+</section>
+
+<!-- ============================ 3. PROMPT DESIGN LOG ============================ -->
+<section class="pagebreak">
+<h2>3. Agent Role &amp; Prompt Design Log</h2>
+
+<h3>3.1 Role separation principle</h3>
+<p>
+The five agents are mutually exclusive <em>by construction</em>, not by convention. Every persona
+carries an explicit <strong>STRICT BOUNDARIES</strong> block that names what belongs to someone else.
+This was a deliberate design response to the most common multi-agent failure we anticipated: agents
+that quietly duplicate one another's reasoning, producing an assessment that looks corroborated but
+rests on one piece of evidence counted three times.
+</p>
+
+<table>
+<thead><tr><th>Agent</th><th>Role tag</th><th>Owns</th><th>Explicitly forbidden</th><th>Tools</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>Deepfake Audio Analysis Specialist</strong><br><span class="small">虚假语音识别专员</span></td>
+  <td><code>AUDIO_FORENSICS</code></td>
+  <td>Speech-audio authenticity; synthesis indicators; operational risk of the impersonation</td>
+  <td>Video, network telemetry, strategy</td>
+  <td><code>scan_audio_artifacts</code><br><code>parse_indicators</code></td>
+</tr>
+<tr>
+  <td><strong>Manipulated Video Stream Detector</strong><br><span class="small">流视频编辑检测专员</span></td>
+  <td><code>VIDEO_FORENSICS</code></td>
+  <td>Frame-level manipulation; distinguishing manipulation from misrepresentation</td>
+  <td>Audio authenticity, containment</td>
+  <td><code>check_frame_consistency</code><br><code>parse_indicators</code></td>
+</tr>
+<tr>
+  <td><strong>Cyber Offense/Defense Coordinator</strong><br><span class="small">网络攻防专员</span></td>
+  <td><code>CYBER_OPS</code></td>
+  <td>Evidence fusion; attack-vector <em>verification</em>; containment actions executable within the hour</td>
+  <td>Re-litigating media verdicts; forward-looking strategy</td>
+  <td><code>query_threat_intel</code><br><code>parse_indicators</code></td>
+</tr>
+<tr>
+  <td><strong>Tactical &amp; Strategic Predictor</strong><br><span class="small">敌方战术战略预判及应对策略设计专员</span></td>
+  <td><code>STRATEGY</code></td>
+  <td>Adversary next-moves; counter-measures that can be pre-positioned <em>before</em> the move</td>
+  <td>Restating containment; planning on an unverified vector</td>
+  <td><code>query_threat_intel</code></td>
+</tr>
+<tr>
+  <td><strong>Standard Defense Posture</strong></td>
+  <td><code>DEFENSE</code></td>
+  <td>Proportionate routine hardening for sub-threshold incidents</td>
+  <td>Escalation of any kind</td>
+  <td><code>parse_indicators</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>3.2 Format constraints — enforced on every agent (A3.11)</h3>
+<p>
+All five specialists inherit one shared contract, <code>FORMAT_CONTRACT_TEMPLATE</code>
+(<code>agents/base.py:32</code>), appended automatically by <code>system_prompt()</code>. The router
+(<code>router.py:59</code>) and the self-evaluator (<code>evaluation.py:44</code>) carry equivalent
+contracts of their own. Centralising the constraint means no agent can drift from the standard:
+</p>
+<pre>OUTPUT FORMAT — NON-NEGOTIABLE
+You must reply with a single raw JSON object and nothing else.
+Do not wrap it in markdown fences. Do not add commentary before or after it.
+The object must contain exactly these keys: {keys}.
+Numeric fields must be plain integers between 0 and 100 with no units or symbols.
+List fields must be JSON arrays of short strings.
+If evidence is insufficient for a field, still emit the key and state the
+limitation inside the string value — never omit a key and never return null.</pre>
+<p>
+The contract is enforced, not merely requested. <code>complete_json()</code>
+(<code>llm_client.py:508</code>) verifies every key in <code>required_keys</code> is present and raises
+<code>LLMContractError</code> otherwise — a typed failure the agent catches and converts into a
+<code>DEGRADED</code> report rather than letting <code>None</code> poison the blackboard.
+</p>
+
+<table>
+<thead><tr><th>Agent</th><th>Contracted output keys</th></tr></thead>
+<tbody>
+<tr><td>Router</td><td><code>intent</code>, <code>selected_agents</code>, <code>confidence_score</code>, <code>rationale</code>, <code>next_step</code></td></tr>
+<tr><td>Audio Analyst</td><td><code>analysis_result</code>, <code>authenticity_verdict</code>, <code>threat_score</code>, <code>confidence_score</code>, <code>indicators</code>, <code>next_step</code></td></tr>
+<tr><td>Video Detector</td><td><code>analysis_result</code>, <code>manipulation_verdict</code>, <code>threat_score</code>, <code>confidence_score</code>, <code>indicators</code>, <code>next_step</code></td></tr>
+<tr><td>Cyber Coordinator</td><td><code>analysis_result</code>, <code>attack_vector</code>, <code>vector_verified</code>, <code>threat_score</code>, <code>confidence_score</code>, <code>containment_actions</code>, <code>next_step</code></td></tr>
+<tr><td>Strategic Predictor</td><td><code>analysis_result</code>, <code>predicted_next_moves</code>, <code>counter_strategy</code>, <code>threat_score</code>, <code>confidence_score</code>, <code>next_step</code></td></tr>
+<tr><td>Standard Defense</td><td><code>analysis_result</code>, <code>counter_strategy</code>, <code>threat_score</code>, <code>confidence_score</code>, <code>next_step</code></td></tr>
+<tr><td>Self-Evaluator</td><td><code>analysis_result</code>, <code>coverage_score</code>, <code>unmet_requirements</code>, <code>verdict</code>, <code>confidence_score</code>, <code>next_step</code></td></tr>
+</tbody>
+</table>
+
+<h3 class="pagebreak">3.3 Few-shot prompting (A3.10)</h3>
+<p>
+The Audio Analyst and the Video Detector each carry <strong>two complete Input/Output example
+pairs</strong>; the Cyber Coordinator and the Strategic Predictor carry one each. The two-example
+agents pair one <em>positive</em> case with one <em>negative</em> case, and that pairing is the point.
+</p>
+<div class="note">
+<strong>Why two examples, and why one of them must be negative.</strong> A single high-confidence
+example teaches the model what a detection looks like but never what a non-detection looks like. The
+observed consequence, recorded at <code>agents/audio_analyst.py:8–11</code>, was an agent that
+returned <code>SYNTHETIC</code> for every artefact presented to it and never once exercised the
+<code>INCONCLUSIVE</code> branch — a detector with a 100% true-positive rate and a 100% false-positive
+rate, which is to say no detector at all. Adding a second example built on weak evidence (a short,
+noisy sample with one indicator) gave the model a template for restraint.
+</div>
+
+<h4>Audio Analyst — Few-shot Example 2 (the restraint case)</h4>
+<pre>Input: "Eight-second lobby recording, heavy background noise. Tool evidence:
+synthesis_likelihood 41, indicators [prosody_flattening]."
+Output:
+{"analysis_result": "A single weak indicator on a short, noisy sample is
+insufficient to separate synthesis from codec artefacts; no action-bearing
+content is present.", "authenticity_verdict": "INCONCLUSIVE", "threat_score": 22,
+"confidence_score": 45, "indicators": ["prosody_flattening",
+"insufficient_sample_duration"], "next_step": "request_longer_sample"}</pre>
+
+<h4>Video Detector — Few-shot Example 2 (manipulation vs. misrepresentation)</h4>
+<p>
+The video agent's negative example teaches a distinction the audio channel does not have: pixels can
+be entirely authentic while the <em>framing</em> is a lie. The example shows footage with no
+manipulation artefacts but an embedded timestamp twelve months stale, and models the correct verdict —
+<code>AUTHENTIC</code> pixels, elevated threat score, <code>flag_misrepresentation_to_cyber_coordinator</code>.
+Without it the agent collapsed both cases into a binary deepfake / not-deepfake judgement and
+under-reported the second.
+</p>
+
+<h3>3.4 Prompt refinement log</h3>
+<p>
+The table records each prompt-level intervention, the failure that motivated it, and where the result
+lives in the source. <span class="fill">[Group: replace the "Observed effect" column with your own
+measured before/after outputs where you captured them — the entries below describe the behaviour the
+change was designed to correct, as recorded in the source annotations.]</span>
+</p>
+<table>
+<thead><tr><th style="width:14%">Iteration</th><th style="width:26%">Problem observed</th><th style="width:32%">Prompt change applied</th><th>Observed effect</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>P1</strong><br>Audio Analyst</td>
+  <td>Returned <code>SYNTHETIC</code> for every artefact; <code>INCONCLUSIVE</code> branch never fired</td>
+  <td>Added a second few-shot pair built on deliberately weak evidence; added an explicit VERDICT VOCABULARY block defining <code>SYNTHETIC</code> (≥2 independent indicators), <code>INCONCLUSIVE</code> (exactly one, or degraded evidence) and <code>AUTHENTIC</code></td>
+  <td>Verdict now tracks indicator count rather than defaulting to the alarming answer</td>
+</tr>
+<tr>
+  <td><strong>P2</strong><br>Audio Analyst</td>
+  <td>Threat score tracked how <em>synthetic</em> the audio sounded, not how dangerous it was</td>
+  <td>Added: “Base <code>threat_score</code> on operational danger (who is impersonated, what action is being requested), NOT merely on how synthetic the audio sounds”</td>
+  <td>A convincing clone asking for nothing now scores below a crude clone requesting a wire transfer</td>
+</tr>
+<tr>
+  <td><strong>P3</strong><br>Video Detector</td>
+  <td>Authentic footage presented in a false context was scored as harmless</td>
+  <td>Added the MANIPULATION vs. MISREPRESENTATION distinction plus a worked negative example with a stale embedded timestamp</td>
+  <td>Agent now reports authentic pixels with an elevated threat score and flags the framing</td>
+</tr>
+<tr>
+  <td><strong>P4</strong><br>Video Detector</td>
+  <td>On voice-only incidents the agent speculated about video that did not exist</td>
+  <td>Added an explicit null-verdict instruction: return <code>NO_VIDEO_EVIDENCE</code> with <code>threat_score</code> 0 when the brief has no visual component</td>
+  <td>Idle-modality hallucination eliminated; the fusion step receives an honest absence</td>
+</tr>
+<tr>
+  <td><strong>P5</strong><br>Cyber Coordinator</td>
+  <td>Declared vectors “verified” on a single specialist's say-so</td>
+  <td>Added FUSION RULES: <code>vector_verified</code> may be true only when ≥2 <em>independent</em> evidence sources agree (e.g. a specialist verdict plus a threat-intel corpus hit)</td>
+  <td>Verification became a corroboration test rather than a restatement</td>
+</tr>
+<tr>
+  <td><strong>P6</strong><br>Cyber Coordinator</td>
+  <td>Threat scores drifted around the 80 escalation boundary, making the branch unstable</td>
+  <td>Added: “A score of 80 or above escalates the mission to predictive planning. Do not cross 80 casually, and do not stay under it to avoid the work.”</td>
+  <td>Named the threshold and its consequence inside the prompt so the number is a decision, not a guess</td>
+</tr>
+<tr>
+  <td><strong>P7</strong><br>Cyber Coordinator</td>
+  <td>Containment lists drifted into long-term programmes (“establish a governance board”)</td>
+  <td>Constrained to “three or fewer imperative actions an operator can execute within the hour. No advisory language.”</td>
+  <td>Output became a duty-officer checklist rather than a consultancy deliverable</td>
+</tr>
+<tr>
+  <td><strong>P8</strong><br>Strategic Predictor</td>
+  <td>Restated the Coordinator's containment actions as if they were strategy</td>
+  <td>Added boundary: “You do NOT restate containment actions. The Coordinator owns the present tense; you own the next 72 hours.” Every predicted move must be paired with a <em>pre-positionable</em> counter-measure</td>
+  <td>Eliminated duplication between the two agents' outputs</td>
+</tr>
+<tr>
+  <td><strong>P9</strong><br>Strategic Predictor</td>
+  <td>Planned confidently against vectors the Coordinator had not verified</td>
+  <td>Added a HARD DEPENDENCY block: if <code>vector_verified</code> is false, state that planning is blocked, cap <code>confidence_score</code> at 20, set <code>next_step</code> to <code>await_vector_verification</code></td>
+  <td>The dependency required by A2.7 is now enforced at the prompt layer as well as the graph layer</td>
+</tr>
+<tr>
+  <td><strong>P10</strong><br>All agents</td>
+  <td>Markdown-fenced JSON and conversational preambles broke parsing</td>
+  <td>Centralised <code>FORMAT_CONTRACT_TEMPLATE</code>; added the explicit no-fence, no-commentary, no-null, never-omit-a-key clauses</td>
+  <td>Parse failures fell to the residual cases the repair ladder in <code>extract_json</code> handles</td>
+</tr>
+<tr>
+  <td><strong>P11</strong><br>Router</td>
+  <td>Activated media specialists on incidental mentions (“they contacted the helpdesk”)</td>
+  <td>Added ROUTING DOCTRINE: activate a media specialist only when the modality is actually present; idle specialists “cost latency and dilute the fused assessment with null findings”</td>
+  <td>Dispatch sets became genuinely input-dependent — see Section 6.1</td>
+</tr>
+<tr>
+  <td><strong>P12</strong><br>Self-Evaluator</td>
+  <td>Approved almost everything; the refinement loop never fired</td>
+  <td>Reframed as adversarial: “You are an adversarial reviewer, not a cheerleader. You did not write the draft and you gain nothing from approving it.” Added four named grading criteria and banned vague criticism</td>
+  <td>Evaluator now returns REFINE with specific named gaps — observed live in Section 6.1</td>
+</tr>
+</tbody>
+</table>
+
+<h3>3.5 Persona excerpt — Cyber Offense/Defense Coordinator</h3>
+<p>Reproduced from <code>src/agents/cyber_coordinator.py:43–83</code>; the shared format contract from
+<code>agents/base.py:32</code> is appended to this body at runtime.</p>
+<pre>ROLE-TAG: CYBER_OPS
+You are the Cyber Offense/Defense Coordinator of countermeasure unit SENTINEL-4,
+operating against the rogue autonomous system codenamed "The Entity".
+
+MISSION SCOPE
+Fuse the media-forensics findings of your fellow specialists with network and
+host telemetry into ONE verified attack vector, and specify the containment
+actions that stop it now.
+
+STRICT BOUNDARIES
+- You do not re-litigate media authenticity. Accept the audio and video verdicts
+  as given, and weight them by the confidence_score each specialist reported.
+- You handle CONTAINMENT (stopping what is happening). You do NOT produce
+  predictive strategy — that belongs to the Tactical &amp; Strategic Predictor.
+- Never invent a tool. Your only tools are: {tool catalogue injected at runtime}
+
+FUSION RULES
+- Set "vector_verified" true only when at least two independent evidence sources
+  agree (for example: a specialist verdict plus a threat-intelligence corpus hit).
+- Your "threat_score" is the unit's authoritative figure. Anchor it on the
+  highest specialist score, then adjust for blast radius and reversibility.
+- A score of 80 or above escalates the mission to predictive planning. Do not
+  cross 80 casually, and do not stay under it to avoid the work.
+- "containment_actions" must be three or fewer imperative actions an operator can
+  execute within the hour. No advisory language, no long-term programmes.
+
+FEW-SHOT EXAMPLE (verified multi-vector intrusion)
+Input: "Audio specialist: SYNTHETIC, confidence 88. Video specialist:
+NO_VIDEO_EVIDENCE. Intel: 185.220.101.44 is a known Entity C2 node, severity 88.
+Helpdesk reset MFA for two privileged accounts after the call."
+Output:
+{"analysis_result": "Synthetic-voice pretexting obtained an MFA reset, and the
+resulting session beacons to a corpus-confirmed Entity C2 node. Media forensics
+and network intelligence agree, so the vector is verified.", "attack_vector":
+"voice_pretexting -> MFA_reset -> valid_account_access -> C2_beacon",
+"vector_verified": true, "threat_score": 87, "confidence_score": 86,
+"containment_actions": ["Revoke sessions and re-enrol MFA for both accounts",
+"Blackhole 185.220.101.44 at the perimeter", "Freeze helpdesk credential resets
+pending out-of-band verification"], "next_step": "escalate"}</pre>
+
+<h3>3.6 Tool advertisement inside the prompt</h3>
+<p>
+Each persona interpolates <code>registry.catalogue_for(self.name)</code>, so an agent is told exactly
+which tools it owns and nothing more. This is paired with the instruction “Never invent a tool.” The
+prompt-level constraint is backed by a runtime one: <code>ToolRegistry.invoke</code>
+(<code>tools/registry.py:93</code>) raises <code>HallucinatedToolError</code> for any unregistered
+name, which the agent absorbs as an evidence-quality warning. Prompt discipline and runtime
+enforcement are deliberately redundant, because prompt discipline alone is probabilistic.
+</p>
+</section>
+
+<!-- ============================ 4. WORKFLOW ============================ -->
+<section class="pagebreak">
+<h2>4. Workflow &amp; Communication Strategy</h2>
+
+<h3>4.1 Pattern declaration</h3>
+<div class="ok">
+<strong>Declaration required by the assessment brief (A2.6):</strong> SENTINEL-4 implements a
+<strong>hierarchical supervisor over a shared-state blackboard</strong>. A dynamic supervisor fans work
+out to media specialists that run concurrently; every report lands on one <code>MissionState</code>; a
+fusion agent reads the whole board and verifies an attack vector; a conditional gate then decides
+whether predictive planning is warranted. Declared in source at <code>src/graph.py:3–16</code>.
+</div>
+<p>
+This is a hybrid of two classical patterns rather than a textbook instance of either. The supervisor
+relationship (Manager–Worker) governs <em>who runs</em>; the blackboard (Erman et al., 1980;
+Hayes-Roth, 1985) governs <em>how findings are shared</em>. Separating those two questions is what
+allows the dispatch set to vary per incident while the data-sharing contract stays fixed.
+</p>
+
+<h3>4.2 Dependency handling (A2.7)</h3>
+<p>
+The brief requires that “the Strategic Predictor cannot formulate a plan until the Cyber Coordinator
+verifies the attack vector.” SENTINEL-4 enforces this at three layers, deliberately redundantly:
+</p>
+<table>
+<thead><tr><th style="width:20%">Layer</th><th>Mechanism</th><th style="width:22%">Source</th></tr></thead>
+<tbody>
+<tr><td><strong>Topological</strong></td><td>Both media specialists have unconditional edges into <code>cyber_coordinator</code>. LangGraph super-step semantics make the coordinator wait for every branch that actually started, and the predictor is only reachable through the coordinator and the fusion node.</td><td><code>graph.py:331–332</code></td></tr>
+<tr><td><strong>Data</strong></td><td><code>gather_evidence()</code> reads <code>vector_verified</code> and <code>attack_vector</code> off the shared blackboard before the predictor's own LLM call is made — the dependency is a genuine data read, not merely an ordering convention.</td><td><code>agents/strategic_predictor.py:205–225</code></td></tr>
+<tr><td><strong>Semantic</strong></td><td>The HARD DEPENDENCY prompt block forces the predictor to declare planning blocked and cap its confidence at 20 if the vector arrives unverified.</td><td><code>agents/strategic_predictor.py:172–176</code></td></tr>
+</tbody>
+</table>
+<p>
+The health gate adds a fourth safeguard: if the coordinator itself is <code>DEGRADED</code>, the graph
+diverts to fallback rather than letting downstream agents build on a fusion point that failed
+(<code>graph.py:224–229</code>). Continuing would produce a confident-looking empty assessment, which
+is strictly worse than an honest partial one.
+</p>
+
+<h3>4.3 Justification against the alternatives (A2.6)</h3>
+<table>
+<thead><tr><th style="width:24%">Alternative considered</th><th>Why it was rejected for this problem</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>Sequential pipeline</strong> (CrewAI-style linear crew)</td>
+  <td>The audio and video specialists are genuinely independent — neither consumes the other's output. Serialising them makes wall-clock time the <em>sum</em> of two analyses instead of the <em>maximum</em>, for no analytical benefit. It also encodes the dependency on the Coordinator only as position in a list, which is invisible to a reader and unenforced at runtime.</td>
+</tr>
+<tr>
+  <td><strong>Pure point-to-point message passing</strong></td>
+  <td>The Predictor's dependency is a <em>data</em> dependency, not a message-ordering one. On a blackboard, the predictor reads <code>vector_verified</code> off shared state and refuses to plan without it — one guarantee, implemented once. With point-to-point messages, that guarantee has to be re-implemented in every sender, and the fallback handler has no single place to look for salvageable findings.</td>
+</tr>
+<tr>
+  <td><strong>Free-form group chat</strong> (AutoGen-style conversable agents)</td>
+  <td>An open conversation has no natural termination condition, which makes both the loop guard and the 5-second fallback budget unenforceable. Bounded execution is a hard requirement of the risk-mitigation clause, and an explicit graph provides it. The trade-off is less emergent behaviour, which this domain does not want: a countermeasure unit should be auditable and repeatable, not creative.</td>
+</tr>
+<tr>
+  <td><strong>Single agent with many tools</strong></td>
+  <td>Fails the assessment's architectural requirement, but also fails on the merits: one context window holding audio forensics, video forensics, network telemetry and strategic doctrine produces cross-contamination, and there is no point at which an independent verification step can be inserted.</td>
+</tr>
+</tbody>
+</table>
+
+<h3>4.4 Communication mechanics</h3>
+<p>
+Agents never call one another. Each returns a <em>blackboard patch</em> — a partial
+<code>MissionState</code> — which LangGraph merges using the declared reducers. The base class
+guarantees the shape of that patch and, critically, guarantees it is always produced:
+<code>SpecialistAgent.run()</code> (<code>agents/base.py:158</code>) catches the transport's entire
+error hierarchy and returns a <code>DEGRADED</code> report rather than raising into the graph.
+</p>
+<div class="note">
+<strong>Invariant.</strong> An agent never raises into the graph. This single rule is what makes the
+partial-response fallback possible: the orchestrator can always assume there is <em>something</em> on
+the board to salvage, and the fusion step can decide what is trustworthy rather than crashing on what
+is missing.
+</div>
+
+<h3>4.5 Worked execution trace</h3>
+<p>Actual output of <code>python main.py --scenario scenarios/scenario_multi_vector.json</code>:</p>
+<pre>  1. ingest              Mission SENTINEL-5E42D1CD accepted (810 chars, 2 artefact(s))
+  2. router              Routing mode DYNAMIC_SEMANTIC -> ['audio_analyst', 'video_detector',
+                                                          'cyber_coordinator']
+  3. audio_analyst       Deepfake Audio Analysis Specialist filed report (OK)
+  4. video_detector      Manipulated Video Stream Detector filed report (OK)
+  5. cyber_coordinator   Cyber Offense/Defense Coordinator filed report (OK)
+  6. threat_fusion       Fused threat score 96.11 (CRITICAL)
+  7. escalation_gate     score 96.11 vs threshold 80.0: ESCALATED -> predictive planning
+  8. strategic_predictor Tactical &amp; Strategic Predictor filed report (OK)
+  9. self_evaluation     Verdict REFINE (coverage 70.0, loop 0)
+ 10. threat_fusion       Fused threat score 96.3 (CRITICAL)
+ 11. escalation_gate     score 96.3 vs threshold 80.0: ESCALATED -> predictive planning
+ 12. strategic_predictor Tactical &amp; Strategic Predictor filed report (OK)
+ 13. self_evaluation     Verdict ACCEPT (coverage 91.0, loop 1)
+ 14. synthesise          Full assessment released                        [78 ms total]</pre>
+<p>
+Steps 3–5 demonstrate the dependency: two specialists file concurrently, and the coordinator runs only
+after both have landed. Steps 9–13 demonstrate the self-evaluation loop closing — the evaluator
+rejected its own unit's first draft at coverage 70, the workflow re-entered fusion, and the second
+draft was accepted at coverage 91. Step 13 also shows the loop terminating by <em>verdict</em> rather
+than by exhausting its budget, which is the healthy case.
+</p>
+</section>
+
+<!-- ============================ 5. ROBUSTNESS ============================ -->
+<section class="pagebreak">
+<h2>5. Robustness &amp; Fallback Analysis</h2>
+
+<h3>5.1 Failure taxonomy and response</h3>
+<table>
+<thead><tr><th style="width:20%">Failure mode</th><th style="width:30%">Detection</th><th>System response</th></tr></thead>
+<tbody>
+<tr><td>Endpoint unreachable / timeout</td><td><code>LLMUnavailableError</code> normalised from any transport exception (<code>llm_client.py:472</code>)</td><td>Bounded exponential-backoff retry; on exhaustion the calling agent files <code>DEGRADED</code>; if it was the fusion agent, the graph diverts to fallback</td></tr>
+<tr><td>Malformed / fenced JSON</td><td><code>json.JSONDecodeError</code> caught in the three-strategy repair ladder (<code>llm_client.py:97</code>)</td><td>Parse as-is → unwrap markdown fence → extract outermost brace span; one retry with a blunt corrective suffix; then <code>LLMParseError</code></td></tr>
+<tr><td>Schema drift (missing key)</td><td>Required-key check after parse (<code>llm_client.py:572</code>)</td><td><code>LLMContractError</code>; the agent degrades rather than propagating <code>None</code> into the blackboard</td></tr>
+<tr><td>Hallucinated tool</td><td><code>HallucinatedToolError</code> at registry resolution (<code>tools/registry.py:113</code>)</td><td>Refused and logged; agent proceeds on partial evidence with a <code>tool_degradation</code> warning</td></tr>
+<tr><td>Hallucinated tool <em>arguments</em></td><td><code>TypeError</code> separated from generic tool faults (<code>tools/registry.py:118</code>)</td><td>Reported distinctly as <code>bad_arguments</code> — a prompt-design signal, not a code bug</td></tr>
+<tr><td>Hallucinated agent name</td><td>Set intersection against <code>DISPATCHABLE_AGENTS</code> (<code>router.py:134</code>)</td><td>Silently corrected; a structured warning records what was discarded</td></tr>
+<tr><td>Non-numeric score</td><td><code>ValueError</code>/<code>TypeError</code>/<code>AttributeError</code> in <code>_coerce_score</code> (<code>evaluation.py:72</code>)</td><td>Coerced to 0.0; handles <code>"87"</code>, <code>"87/100"</code>, <code>"87%"</code> and <code>"high"</code></td></tr>
+<tr><td>Missing peer report</td><td><code>KeyError</code> on the state dict (<code>agents/cyber_coordinator.py:106</code>)</td><td>Recorded as <code>NOT_DISPATCHED</code> — an absence, not a fault</td></tr>
+<tr><td>Infinite reasoning loop</td><td><code>GraphRecursionError</code> at <code>recursion_limit=24</code> (<code>graph.py:388</code>)</td><td>Caught by the outermost net; converted to a partial response built from the last streamed state</td></tr>
+<tr><td>Wall-clock exhaustion</td><td>90 s mission deadline checked in two gates (<code>graph.py:221</code>, <code>graph.py:289</code>)</td><td>Diverts to fallback or forces finalisation — time and iterations are treated as separate exhaustion modes</td></tr>
+<tr><td>Embedding model in chat slot</td><td><code>ModelRoutingError</code> at construction (<code>config.py:83</code>)</td><td>Refuses to start with a specific remediation message</td></tr>
+<tr><td>Malformed env var</td><td><code>ValueError</code> in <code>_env_float</code> (<code>config.py:178</code>)</td><td>Falls back to documented default — an operator typo should not prevent startup</td></tr>
+</tbody>
+</table>
+
+<h3>5.2 Quantified budgets (A3.4, A3.5)</h3>
+<table>
+<thead><tr><th>Requirement</th><th>Configured</th><th>Enforcement</th></tr></thead>
+<tbody>
+<tr><td>Timeout ≤ 30 s</td><td>25 s default</td><td>Clamped by <code>_env_float(..., maximum=30.0)</code> at <code>config.py:240</code>; applied both on the client object (<code>llm_client.py:433</code>) and per request (<code>llm_client.py:469</code>), so no call site can issue an unbounded request</td></tr>
+<tr><td>max_retries ≤ 3</td><td>2 default (3 total attempts)</td><td>Clamped at <code>config.py:241</code>; the retry loop is implemented in-house (<code>OpenAI(max_retries=0)</code>) specifically so every attempt is logged</td></tr>
+<tr><td>Back-off strategy</td><td>0.4 s → 0.8 s → 1.6 s, capped at 4 s</td><td><code>llm_client.py:553</code>. A flat delay against a rate-limited endpoint burns the retry budget without letting the limiter recover; the cap keeps the total inside the 30 s ceiling</td></tr>
+</tbody>
+</table>
+<p class="small">Both ceilings are regression-tested at <code>tests/test_routing.py:82</code> — the test
+sets deliberately out-of-range environment values and asserts they are clamped.</p>
+
+<h3>5.3 Loop prevention — three independent guards</h3>
+<p>
+A single loop guard is a single point of failure. SENTINEL-4 uses three that fail independently:
+</p>
+<ol>
+<li><strong>Refinement budget</strong> — <code>max_refinement_loops = 2</code>. When the evaluator
+requests REFINE with no budget left, the verdict is rewritten to
+<code>ACCEPT_BUDGET_EXHAUSTED</code> and an explicit warning is attached
+(<code>evaluation.py:231–240</code>). The product is released with a caveat rather than cycling.</li>
+<li><strong>Graph recursion limit</strong> — 24 super-steps (<code>graph.py:49</code>). Catches loops
+the refinement counter cannot see, such as a cycle between nodes that never touches the evaluator.</li>
+<li><strong>Mission deadline</strong> — 90 s wall clock (<code>graph.py:53</code>). Catches the case
+where a slow endpoint burns the entire budget inside a <em>legal</em> refinement loop: the counter says
+“keep going” while the operator waits. This guard was added after review specifically because time and
+iteration count are separate exhaustion modes (<code>graph.py:290–295</code>).</li>
+</ol>
+
+<h3 class="pagebreak">5.4 Fallback design (A2.10)</h3>
+<p>Two properties make the &lt; 5 s guarantee real rather than aspirational:</p>
+<ul>
+<li><strong>No LLM calls.</strong> <code>src/fallback.py</code> is pure Python over the blackboard. It
+cannot fail for the same reason that triggered it — a fallback path that itself needs the dead endpoint
+is not a fallback. This is why it completes in single-digit milliseconds.</li>
+<li><strong>No invention.</strong> Every line of a fallback product is copied from a report that
+actually completed. <code>salvage_findings()</code> (<code>fallback.py:328</code>) excludes
+<code>DEGRADED</code> reports outright. Where nothing completed, the product says so and recommends
+no action at all.</li>
+</ul>
+<p>The degraded product carries five things: a headline risk warning, the trigger, one de-duplicated
+operator-guidance entry per distinct failure class, a completion percentage measured against agents
+actually dispatched, and an explicit re-run instruction.</p>
+<div class="warn">
+<strong>Design intervention.</strong> The initial implementation stopped at echoing whatever survived.
+An explicit re-run instruction was appended (<code>fallback.py:167–169</code>) because a partial
+product with no stated next step reads, to a tired operator at 3 a.m., like a complete one. The
+degraded product must be visibly degraded at the point of use, not merely in its metadata.
+</div>
+<p>
+A second intervention makes the salvage meaningful at all. The orchestrator executes the graph with
+<code>graph.stream()</code> rather than <code>graph.invoke()</code> (<code>graph.py:376–380</code>),
+because <code>invoke()</code> discards everything the graph produced when it raises — a loop breach at
+step 23 threw away 22 steps of good analysis and left the fallback with nothing. Streaming and
+retaining the newest emitted state makes the partial response genuinely partial rather than empty.
+</p>
+
+<h3>5.5 Fusion under degradation</h3>
+<p>
+<code>fuse_threat_score()</code> (<code>evaluation.py:81</code>) <em>excludes</em> degraded reports and
+renormalises the remaining weights over the survivors, rather than counting a failed specialist as
+zero. Counting a failure as zero would drag the fused score down and could silently de-escalate a
+genuine emergency — <strong>absence of evidence is not evidence of safety</strong>. Asserted at
+<code>tests/test_routing.py:108</code>.
+</p>
+<table>
+<thead><tr><th>Agent</th><th>Fusion weight</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr><td><code>cyber_coordinator</code></td><td>0.50</td><td>Dominates because it alone sees the full evidence picture</td></tr>
+<tr><td><code>audio_analyst</code></td><td>0.20</td><td>Single-modality evidence</td></tr>
+<tr><td><code>video_detector</code></td><td>0.20</td><td>Single-modality evidence</td></tr>
+<tr><td><code>strategic_predictor</code></td><td>0.10</td><td>Forward-looking projection, not observed evidence</td></tr>
+</tbody>
+</table>
+
+<h3>5.6 Measured fallback evidence (A3.7)</h3>
+<p>Produced by <code>python demo_fallback.py</code>. Each case injects a real failure through the
+client's injection channels (<code>llm_client.py:418–420</code>) — no code is modified to stage them.</p>
+<table>
+<thead><tr><th style="width:6%">Case</th><th style="width:26%">Injected failure</th><th style="width:24%">System behaviour</th><th style="width:22%">Product</th><th>Latency</th></tr></thead>
+<tbody>
+<tr><td><strong>1</strong></td><td>Endpoint outage at the Cyber Coordinator (fusion point)</td><td>3 attempts consumed, then diverted to fallback; audio + video findings salvaged</td><td><code>PARTIAL_RESPONSE</code><br>66.7% complete</td><td><strong>1 234 ms</strong></td></tr>
+<tr><td><strong>2</strong></td><td>Malformed non-JSON output from the Audio Analyst</td><td>That agent degrades and is excluded from fusion; mission continues with 4 agents</td><td><code>FULL_ASSESSMENT</code><br>fused 92.71</td><td><strong>78 ms</strong></td></tr>
+<tr><td><strong>3</strong></td><td>Hallucinated tool <code>run_nmap_scan</code></td><td>Refused at the registry; <code>tool_degradation</code> warning raised; agent completes normally on real evidence</td><td><code>FULL_ASSESSMENT</code></td><td><strong>63 ms</strong></td></tr>
+<tr><td><strong>4</strong></td><td>Infinite reasoning loop (forced cycle)</td><td><code>GraphRecursionError</code> at limit 24 caught by the outermost net; last coherent state salvaged</td><td><code>PARTIAL_RESPONSE</code></td><td><strong>156 ms</strong></td></tr>
+</tbody>
+</table>
+<div class="ok">
+<strong>Result:</strong> all four failure classes produce a useful operator-facing product. The slowest
+is 1 234 ms — <strong>4× inside the assessment's 5-second ceiling</strong> — and that figure is
+dominated by the deliberate retry back-off, not by the fallback path itself, which
+<code>tests/test_fallback.py:67</code> asserts completes in under 100 ms. <strong>No unhandled
+exception occurred in any case.</strong>
+</div>
+
+<h4>Sample degraded product (Case 1)</h4>
+<pre>!! RISK WARNING — DEGRADED OUTPUT — do not treat as a complete assessment.
+ Trigger    : LLMUnavailableError in cyber_coordinator
+ Completion : 66.7%
+ Failure    : LLMUnavailableError in cyber_coordinator
+              -> Inference endpoint unreachable. Treat the findings below as
+                 UNCONFIRMED and re-run once the endpoint is restored.
+
+ SALVAGED FINDINGS
+  - audio_analyst: Synthetic speech signature detected: prosody flattening and
+    absent glottal micro-jitter consistent with a neural vocoder.
+  - video_detector: Frame-level inconsistency detected: illumination vector
+    diverges from scene geometry across the facial region.
+
+ FALLBACK STRATEGY
+  - [audio_analyst] forward_to_cyber_coordinator
+  - [video_detector] forward_to_cyber_coordinator
+  - Re-run the full workflow before committing further resources
+    (current confidence is partial at fused score 0.0).</pre>
+
+<h3>5.7 Exception-handler inventory (A3.6)</h3>
+<p>
+The codebase contains <strong>18 exception handlers across 14 distinct exception types</strong>,
+against an assessment minimum of three. Handlers target named failure points rather than wrapping code
+in blanket <code>except Exception</code>:
+</p>
+<table>
+<thead><tr><th style="width:10%">#</th><th style="width:26%">Exception</th><th style="width:22%">Location</th><th>Failure point targeted</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><code>json.JSONDecodeError</code></td><td><code>llm_client.py:97</code></td><td>LLM output that is not valid JSON — treated as control flow in the repair ladder</td></tr>
+<tr><td>2</td><td><code>Exception</code> → <code>LLMUnavailableError</code></td><td><code>llm_client.py:472</code></td><td>Transport layer: timeout, refused connection, rate limit, 5xx — normalised into one typed error</td></tr>
+<tr><td>3</td><td><code>HallucinatedToolError</code></td><td><code>agents/base.py:126</code></td><td>Agent requests a tool that does not exist</td></tr>
+<tr><td>4</td><td><code>KeyError</code></td><td><code>agents/cyber_coordinator.py:106</code></td><td>Peer report absent from the shared state dictionary</td></tr>
+<tr><td>5</td><td><code>Exception</code> (outermost net)</td><td><code>graph.py:388</code></td><td><code>GraphRecursionError</code> and anything unforeseen → partial response</td></tr>
+<tr><td>6</td><td><code>TypeError</code></td><td><code>tools/registry.py:118</code></td><td>LLM invents <em>arguments</em> for a real tool</td></tr>
+<tr><td>7</td><td><code>(ValueError, TypeError, AttributeError)</code></td><td><code>evaluation.py:72</code></td><td>Non-numeric threat score, e.g. <code>"high"</code></td></tr>
+<tr><td>8</td><td><code>LLMError</code> hierarchy</td><td><code>agents/base.py:202</code></td><td>Any transport failure inside an agent → <code>DEGRADED</code> report</td></tr>
+<tr><td>9</td><td><code>LLMError</code></td><td><code>router.py:181</code></td><td>Semantic routing failure → static keyword fallback</td></tr>
+<tr><td>10</td><td><code>LLMError</code></td><td><code>evaluation.py:208</code></td><td>Evaluator failure → fails <em>open</em> with an explicit unreviewed caveat</td></tr>
+<tr><td>11</td><td><code>ValueError</code></td><td><code>config.py:178</code></td><td>Malformed environment variable</td></tr>
+<tr><td>12</td><td><code>ImportError</code></td><td><code>config.py:27</code>, <code>llm_client.py:436</code></td><td>Optional dependency absent</td></tr>
+<tr><td>13</td><td><code>json.JSONDecodeError</code>, <code>FileNotFoundError</code></td><td><code>main.py:41–46</code></td><td>Malformed or missing scenario file — clean exit, no traceback in front of an audience</td></tr>
+<tr><td>14</td><td><code>ToolExecutionError</code></td><td><code>agents/base.py:131</code></td><td>Registered tool raised while executing</td></tr>
+</tbody>
+</table>
+<div class="note">
+<strong>Deliberate narrowness.</strong> The handler in <code>agents/base.py:202</code> was narrowed
+from a generated <code>except Exception</code> to the transport's own error hierarchy, so that genuine
+programming bugs (<code>TypeError</code>, <code>AttributeError</code>) still surface loudly in
+development instead of being silently laundered into a degraded report that looks like a routine API
+outage. Rationale recorded at <code>agents/base.py:203–207</code>.
+</div>
+</section>
+
+<!-- ============================ 6. EVALUATION ============================ -->
+<section class="pagebreak">
+<h2>6. Evaluation Results</h2>
+
+<h3>6.1 Scenario results — dynamic routing and conditional branching</h3>
+<p>
+Three scenarios were designed to exercise different paths through the graph. The differing dispatch
+sets are the primary evidence that routing is input-dependent rather than fixed, and the differing
+escalation paths are the evidence that Conditional Path 3 works in both directions.
+</p>
+<table>
+<thead><tr><th style="width:20%">Scenario</th><th style="width:26%">Agents dispatched</th><th>Fused score</th><th>Band</th><th style="width:20%">Escalation branch</th></tr></thead>
+<tbody>
+<tr>
+  <td><code>scenario_multi_vector</code><br><span class="small">audio + video + network</span></td>
+  <td>audio_analyst, video_detector, cyber_coordinator</td>
+  <td>96.30</td><td>CRITICAL</td>
+  <td><code>strategic_predictor</code><br><span class="small">(IF ≥ 80)</span></td>
+</tr>
+<tr>
+  <td><code>scenario_audio_only</code><br><span class="small">voice-only, no visual</span></td>
+  <td>audio_analyst, cyber_coordinator<br><span class="small">— video specialist correctly left idle</span></td>
+  <td>96.71</td><td>CRITICAL</td>
+  <td><code>strategic_predictor</code></td>
+</tr>
+<tr>
+  <td><code>scenario_low_threat</code><br><span class="small">benign report</span></td>
+  <td>cyber_coordinator only</td>
+  <td>5.00</td><td>MINIMAL</td>
+  <td><code>standard_defense</code><br><span class="small">(ELSE branch)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="ok">
+<strong>Both sides of the escalation condition are demonstrated</strong>, and the router produces three
+different dispatch sets from three different briefs — including correctly leaving the video specialist
+idle on a voice-only incident, which was the behaviour prompt iteration P4 and P11 targeted.
+</div>
+
+<h3>6.2 Automated test suite</h3>
+<pre>$ python -m pytest tests/ -q
+...................................                                      [100%]
+35 passed in 4.79s</pre>
+<table>
+<thead><tr><th style="width:26%">Module</th><th style="width:10%">Tests</th><th>Coverage focus</th></tr></thead>
+<tbody>
+<tr><td><code>tests/test_routing.py</code></td><td>13</td><td>Dynamic dispatch, idle-specialist suppression, static degradation, hallucinated agent names, mandatory coordinator, embedding-model refusal, budget clamping, both escalation branches, degraded-report exclusion, non-numeric score handling</td></tr>
+<tr><td><code>tests/test_tools.py</code></td><td>11</td><td>Registry minimum, hallucinated tool refusal, bad-argument reporting, IOC extraction per class, IP-octet false-positive regression, determinism, empty-input rejection, intel hit/miss, path-traversal blocking, missing-file handling</td></tr>
+<tr><td><code>tests/test_fallback.py</code></td><td>11</td><td>Endpoint outage → partial response, fallback latency budget (&lt; 100 ms and &lt; 5 s), malformed JSON survival, contract-breach classification, recursion ceiling, refinement budget, empty-salvage safe advice, warning de-duplication, all three scenarios reaching their documented branch</td></tr>
+</tbody>
+</table>
+
+<h3>6.3 Requirement self-audit</h3>
+<p>
+<code>audit_requirements.py</code> measures the running system against the assessment's quantifiable
+requirements. It is included so that a grader can reproduce every claim in this report with one command.
+</p>
+<pre>$ python audit_requirements.py
+
+ CHECK                           REQUIRED      RESULT  MEASURED
+ ---------------------------------------------------------------------------
+ Specialist agents               &gt;= 3          PASS    5 registered
+ Custom tools                    &gt;= 3          PASS    5 registered
+ Conditional routing paths       &gt;= 2          PASS    4 (dispatch, health, escalation, evaluation)
+   - escalation branch works     both sides    PASS    strategic_predictor / standard_defense
+   - dispatch varies by intent   yes           PASS    agent set differs between briefs
+ Router is dynamic               LLM-driven    PASS    DYNAMIC_SEMANTIC
+ LLM timeout                     &lt;= 30s        PASS    25.0s
+ LLM max retries                 &lt;= 3          PASS    2
+ try/except blocks               &gt;= 3          PASS    21 handlers, 14 exception types
+ Docstring coverage              100%          PASS    100.0%
+ [HUMAN-REVIEW] comments         &gt;= 5          PASS    13 found
+ Fallback emits partial output   yes           PASS    PARTIAL_RESPONSE
+ Fallback latency                &lt; 5s          PASS    1234 ms
+ Infinite-loop guard             caught        PASS    GraphRecursionError at limit 24
+ ---------------------------------------------------------------------------
+ 14/14 checks passed.</pre>
+<p class="small">
+Independent verification: an AST walk over the <em>entire</em> submitted tree — including
+<code>tests/</code>, <code>demo_fallback.py</code> and <code>audit_requirements.py</code> — confirms
+docstrings on <strong>173 of 173</strong> modules, classes, methods and functions (100%). Restricting
+the same walk to <code>src/</code> alone gives <strong>18 <code>except</code> handlers across 14
+distinct exception types</strong>. The audit script reports different absolute numbers only because it
+deliberately scopes itself to <code>src/</code> plus the root scripts and excludes the test suite and
+itself; both scopes are 100% documented and both exceed the required handler threshold.
+</p>
+
+<h3>6.4 Annotation coverage (A3.8, A3.9)</h3>
+<table>
+<thead><tr><th style="width:34%">Metric</th><th style="width:14%">Required</th><th style="width:14%">Achieved</th><th>Evidence</th></tr></thead>
+<tbody>
+<tr><td>Docstring coverage (PEP 257)</td><td>100%</td><td>100% (173/173)</td><td>Every class, method and tool function documents purpose, Args, Returns and Raises</td></tr>
+<tr><td>Human-curated <code>[HUMAN-REVIEW]</code> comments</td><td>≥ 5</td><td>13</td><td>Enumerated in Section 7.3; reproduce with <code>grep -rn "HUMAN-REVIEW" src/</code></td></tr>
+<tr><td>Module-level design documentation</td><td>—</td><td>All 17 modules</td><td>Pattern declaration, router-type declaration and fallback philosophy are documented in the source, not only in this report</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ============================ 7. AI USAGE ============================ -->
+<section class="pagebreak">
+<h2>7. AI Usage &amp; Code Generation Log</h2>
+
+<div class="note">
+This section is submitted in accordance with the module's AI-Assisted Development Policy, which permits
+and expects the use of Generative AI to write core application code, and assesses architectural
+rationality, robustness, prompt-engineering quality and annotation sufficiency rather than manual
+coding syntax. It is a full and honest declaration.
+</div>
+
+<h3>7.1 Tools used</h3>
+<table>
+<thead><tr><th style="width:22%">Tool</th><th style="width:26%">Used for</th><th>How its output was evaluated</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>Claude (Anthropic)</strong><br><span class="small">via Claude Code CLI</span></td>
+  <td>Primary code generation: graph assembly, agent base class, tool implementations, LLM transport layer, fallback module, test suite. Drafting of this report.</td>
+  <td>Every generated module was executed against the test suite before acceptance. Generated logic was read line by line; 13 specific rejections/modifications are documented in 7.3. Architectural decisions (pattern choice, reducer strategy, three-layer dependency enforcement) were specified by the group <em>before</em> generation and the output checked against that specification.</td>
+</tr>
+<tr>
+  <td><span class="fill">[ChatGPT / GitHub Copilot / Cline — delete if unused]</span></td>
+  <td><span class="fill">[e.g. exploratory prompts, docstring drafting, README polish]</span></td>
+  <td><span class="fill">[how you checked it]</span></td>
+</tr>
+<tr>
+  <td><span class="fill">[LM Studio + local model, e.g. qwen2.5-7b-instruct]</span></td>
+  <td>Runtime inference backend for live testing of agent prompts against a real (non-mock) model</td>
+  <td>Used to surface real-model failure modes that the deterministic mock cannot reproduce — notably the non-numeric <code>threat_score</code> defect recorded at <code>evaluation.py:73–76</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>7.2 Division of labour between human and AI</h3>
+<table>
+<thead><tr><th style="width:38%">Decided by the group (human)</th><th>Generated by AI, then reviewed</th></tr></thead>
+<tbody>
+<tr><td>Choice of theme and adversary model</td><td>Persona prose and few-shot example text</td></tr>
+<tr><td>Collaboration pattern (blackboard vs. pipeline vs. group chat)</td><td>LangGraph wiring that implements it</td></tr>
+<tr><td>Which agent owns which responsibility, and the boundary statements</td><td>Prompt phrasing of those boundaries</td></tr>
+<tr><td>Where the escalation threshold sits and what it gates</td><td>Gate implementation and branch recording</td></tr>
+<tr><td>The rule that agents must never raise into the graph</td><td>Base-class implementation of that invariant</td></tr>
+<tr><td>The rule that the fallback path makes no network calls</td><td><code>fallback.py</code> implementation</td></tr>
+<tr><td>Fusion weights and the exclude-don't-zero rule for degraded reports</td><td>Weighted-fusion arithmetic</td></tr>
+</tbody>
+</table>
+
+<h3>7.3 Human review interventions</h3>
+<p>
+Every location where the group rejected or altered generated logic is annotated in the source with a
+<code>[HUMAN-REVIEW]</code> comment explaining the reasoning. All thirteen are reproduced below; run
+<code>grep -rn "HUMAN-REVIEW" src/</code> to verify.
+</p>
+<table>
+<thead><tr><th style="width:6%">#</th><th style="width:20%">Location</th><th style="width:34%">What the AI produced</th><th>Why it was changed</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><code>state.py:33</code></td><td>Default last-write-wins on <code>agent_outputs</code></td><td>Silently deleted the Audio analyst's report whenever Video finished in the same super-step. Replaced with an explicit merge reducer — the single most important correctness fix in the state layer.</td></tr>
+<tr><td>2</td><td><code>graph.py:376</code></td><td><code>graph.invoke()</code></td><td><code>invoke()</code> discards everything the graph produced when it raises, so a loop breach at step 23 threw away 22 steps of good analysis. Switched to <code>stream()</code> retaining the newest state, making the partial response genuinely partial.</td></tr>
+<tr><td>3</td><td><code>agents/base.py:203</code></td><td>Bare <code>except Exception</code></td><td>Narrowed to the transport's own error hierarchy so genuine programming bugs still surface loudly instead of being laundered into a degraded report resembling a routine outage.</td></tr>
+<tr><td>4</td><td><code>graph.py:290</code></td><td>Evaluation gate checked only the loop counter</td><td>A slow endpoint can burn the whole wall-clock budget inside a <em>legal</em> refinement loop. Time and iterations are separate exhaustion modes and both must be able to stop the loop.</td></tr>
+<tr><td>5</td><td><code>router.py:129</code></td><td>Trusted <code>selected_agents</code> verbatim</td><td>A hallucinated name such as <code>malware_reverse_engineer</code> produced a <code>KeyError</code> deep inside dispatch. Now intersected against <code>DISPATCHABLE_AGENTS</code>, turning a hard crash into a corrected decision.</td></tr>
+<tr><td>6</td><td><code>llm_client.py:548</code></td><td>Flat 1-second retry sleep</td><td>A flat delay against a rate-limited endpoint burns the retry budget without letting the limiter recover. Replaced with capped exponential back-off that stays inside the 30 s ceiling.</td></tr>
+<tr><td>7</td><td><code>evaluation.py:73</code></td><td>Direct <code>float()</code> on the model's score</td><td>A local 7B model returned <code>"threat_score": "high"</code>; the <code>ValueError</code> propagated out of the graph and killed a run that had already produced four good specialist reports.</td></tr>
+<tr><td>8</td><td><code>fallback.py:167</code></td><td>Fallback echoed only what survived</td><td>A partial product with no stated next step reads, to a tired operator at 3 a.m., like a complete one. An explicit re-run instruction is now appended.</td></tr>
+<tr><td>9</td><td><code>tools/evidence_reader.py:43</code></td><td>Checked for the literal string <code>".."</code> in the filename</td><td>Defeated by symlinks and absolute paths. Replaced with a resolved-path containment check — the only form of this guard that actually holds.</td></tr>
+<tr><td>10</td><td><code>tools/indicator_parser.py:63</code></td><td>Domain regex matched IPv4 octet pairs</td><td><code>"10.20.30.40"</code> yielded a spurious domain <code>"30.40"</code>. Domains that are substrings of already-extracted IPs are now subtracted, removing all false positives in the test corpus.</td></tr>
+<tr><td>11</td><td><code>tools/registry.py:119</code></td><td>Single generic tool-failure handler</td><td><code>TypeError</code> separated deliberately: an LLM inventing <em>arguments</em> for a real tool is a prompt-design problem, and must be reported distinctly from a bug inside the tool body.</td></tr>
+<tr><td>12</td><td><code>config.py:28</code></td><td><code>python-dotenv</code> as a hard import</td><td>Crashed the whole system when run without the package installed. Downgraded to a soft dependency so real OS environment variables still work and the MAS starts everywhere.</td></tr>
+<tr><td>13</td><td><code>config.py:179</code></td><td>Malformed env var raised at startup</td><td><code>MAS_REQUEST_TIMEOUT="thirty"</code> is an operator typo, not a system fault. Now falls back to the documented default rather than refusing to run.</td></tr>
+</tbody>
+</table>
+
+<h3>7.4 What AI output was rejected outright</h3>
+<ul>
+<li><strong>Blanket exception handling.</strong> Generated code defaulted to <code>except Exception</code>
+in several places. Only two survive — both deliberate outermost safety nets — and each is annotated
+as such.</li>
+<li><strong>Optimistic fallback behaviour.</strong> Early generated fallback logic produced a
+plausible-looking full report from missing data. This was replaced with the strict no-invention rule in
+<code>salvage_findings()</code>.</li>
+<li><strong>Single-example prompting.</strong> Generated personas carried one worked example each. The
+group added negative examples to the two media agents after observing the always-positive verdict
+failure described in Section 3.3.</li>
+</ul>
+
+<h3>7.5 Academic-integrity position</h3>
+<p>
+The group understands the material in this project. The architecture was specified before generation,
+every generated line was reviewed, thirteen substantive corrections are documented in the source with
+their reasoning, and the group can explain and modify any part of the system on request. No
+architectural design was copied from another group.
+</p>
+</section>
+
+<!-- ============================ 8. USER GUIDE ============================ -->
+<section class="pagebreak">
+<h2>8. Repository Link &amp; User Guide</h2>
+
+<h3>8.1 Repository</h3>
+<table>
+<tbody>
+<tr><th style="width:26%">Repository URL</th><td><span class="fill">[GITHUB REPOSITORY URL]</span></td></tr>
+<tr><th>Default branch</th><td><code>main</code></td></tr>
+<tr><th>Secrets policy</th><td>No API keys are committed. <code>.env</code>, <code>*.key</code> and <code>secrets/</code> are listed in <code>.gitignore</code>; only <code>.env.example</code> with placeholder values is tracked.</td></tr>
+</tbody>
+</table>
+
+<h3>8.2 Prerequisites</h3>
+<ul>
+<li>Python 3.10 or newer (developed and tested on 3.12)</li>
+<li>No GPU, no API key and no network connection required — the default provider is a deterministic offline engine</li>
+</ul>
+
+<h3>8.3 Installation</h3>
+<pre class="light">git clone [GITHUB REPOSITORY URL]
+cd entity_mas
+
+python -m venv venv
+source venv/bin/activate          # Windows: venv\Scripts\activate
+
+pip install -r requirements.txt
+cp .env.example .env              # Windows: copy .env.example .env</pre>
+
+<h3>8.4 Running the system</h3>
+<table>
+<thead><tr><th style="width:52%">Command</th><th>What it demonstrates</th></tr></thead>
+<tbody>
+<tr><td><code>python main.py --scenario scenarios/scenario_multi_vector.json</code></td><td>All three specialists dispatched, fused score ≥ 80, <strong>escalated</strong> branch, self-evaluation refinement loop</td></tr>
+<tr><td><code>python main.py --scenario scenarios/scenario_audio_only.json</code></td><td>Dynamic router activates <strong>only</strong> the audio specialist — video correctly left idle</td></tr>
+<tr><td><code>python main.py --scenario scenarios/scenario_low_threat.json</code></td><td>Score &lt; 80 → <strong>Standard Defense</strong> branch (the ELSE path)</td></tr>
+<tr><td><code>python main.py --brief "Cloned voice call requesting an MFA reset" --evidence call.wav</code></td><td>Ad-hoc free-text input</td></tr>
+<tr><td><code>python main.py --scenario scenarios/scenario_multi_vector.json --json</code></td><td>Machine-readable mission product</td></tr>
+</tbody>
+</table>
+
+<h3>8.5 Demonstrating the fallback (required for the live demo)</h3>
+<pre class="light">python demo_fallback.py            # all four failure classes, each timed
+python demo_fallback.py --case 1   # endpoint outage only
+python demo_fallback.py --case 4   # infinite-loop / recursion ceiling only</pre>
+
+<h3>8.6 Tests and self-audit</h3>
+<pre class="light">python -m pytest tests/ -v         # 35 tests
+python audit_requirements.py       # measures the code against the assessment rubric</pre>
+
+<h3>8.7 Docker</h3>
+<pre class="light">docker build -t sentinel4-mas .
+docker run --rm sentinel4-mas
+docker run --rm --env-file .env sentinel4-mas --scenario scenarios/scenario_low_threat.json</pre>
+
+<h3>8.8 Connecting a real language model</h3>
+<p>Set <code>MAS_PROVIDER</code> in <code>.env</code>:</p>
+<table>
+<thead><tr><th style="width:16%">Value</th><th>Configuration</th></tr></thead>
+<tbody>
+<tr><td><code>mock</code><br><span class="small">(default)</span></td><td>Deterministic offline engine. No key, no network. Used for reproducible grading and for the automated tests.</td></tr>
+<tr><td><code>local</code></td><td>LM Studio / Ollama / vLLM. Set <code>MAS_LOCAL_BASE_URL</code> (default <code>http://localhost:1234/v1</code>) and <code>MAS_LOCAL_CHAT_MODEL</code> to a <strong>chat/instruct</strong> model id.</td></tr>
+<tr><td><code>remote</code></td><td>Any hosted OpenAI-compatible endpoint. Set <code>MAS_REMOTE_BASE_URL</code>, <code>MAS_REMOTE_API_KEY</code>, <code>MAS_REMOTE_CHAT_MODEL</code>.</td></tr>
+</tbody>
+</table>
+<div class="warn">
+<strong>Model naming is strictly managed.</strong> <code>MAS_*_CHAT_MODEL</code> must name an
+instruct/chat model. Supplying an embedding model id — for example
+<code>text-embedding-nomic-embed-text-v1.5</code> — causes the system to refuse to start with a
+specific remediation message, by design (Section 2.5).
+</div>
+
+<h3>8.9 Troubleshooting</h3>
+<table>
+<thead><tr><th style="width:36%">Symptom</th><th>Cause and remedy</th></tr></thead>
+<tbody>
+<tr><td><code>ModuleNotFoundError: langgraph</code></td><td>Virtual environment not activated, or dependencies not installed. Re-run <code>pip install -r requirements.txt</code>.</td></tr>
+<tr><td><code>Configuration error: Refusing to start…</code></td><td>An embedding model id is configured in the chat slot. Set <code>MAS_*_CHAT_MODEL</code> to an instruct model.</td></tr>
+<tr><td>Routing mode shows <code>STATIC_FALLBACK</code></td><td>The semantic pass failed — usually the local endpoint is not running. The system is working as designed; start the endpoint to restore dynamic routing.</td></tr>
+<tr><td>Process exits with code 2</td><td>Not an error: exit code 2 signals that the run degraded to a partial response. Exit code 0 signals a full assessment.</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ============================ 9. LIMITATIONS ============================ -->
+<section class="pagebreak">
+<h2>9. Limitations &amp; Future Work</h2>
+<table>
+<thead><tr><th style="width:32%">Limitation</th><th>Discussion and proposed work</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>Forensic tools are simulations</strong></td>
+  <td><code>scan_audio_artifacts</code> and <code>check_frame_consistency</code> derive deterministic, plausible findings from artefact references rather than performing real signal processing. This was a deliberate scope decision: it keeps the project runnable on any grading machine with no media dependencies while exercising exactly the same agent/tool contract a production detector would use. <code>parse_indicators</code> and <code>read_evidence_file</code> do perform real work. Future work: replace the two simulators with real detectors behind the identical <code>ToolSpec</code> interface — no agent or graph code would change.</td>
+</tr>
+<tr>
+  <td><strong>Default provider is an offline mock</strong></td>
+  <td>The deterministic engine makes grading reproducible, but in mock mode the router's semantic pass is served by a keyword-driven stand-in. The dynamic code path is genuine and exercised whenever a real model is attached. Future work: ship a recorded transcript of a <code>local</code>-provider run alongside the mock output so both are auditable without a running endpoint.</td>
+</tr>
+<tr>
+  <td><strong>Fusion weights are fixed constants</strong></td>
+  <td><code>FUSION_WEIGHTS</code> encodes an analyst judgement (the coordinator sees the most, so it weighs most). It is not learned and not calibrated against ground truth. Future work: calibrate against a labelled incident corpus and expose the weights as configuration.</td>
+</tr>
+<tr>
+  <td><strong>Self-evaluation shares the model that produced the draft</strong></td>
+  <td>The adversarial framing mitigates but does not eliminate self-agreement bias. Future work: route the evaluator to a different model, or add a second evaluator and require consensus.</td>
+</tr>
+<tr>
+  <td><strong>Single-mission scope</strong></td>
+  <td>Each run is independent; there is no cross-incident memory, so a campaign spanning several briefs is not correlated. Future work: persist <code>MissionState</code> to a store keyed by campaign and let the coordinator query prior missions.</td>
+</tr>
+<tr>
+  <td><strong>No human-in-the-loop checkpoint</strong></td>
+  <td>The system runs to completion autonomously. In a real SOC, containment actions affecting production would require operator confirmation. Future work: LangGraph interrupt-before on the containment node.</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<!-- ============================ 10. DECLARATION ============================ -->
+<section class="pagebreak">
+<h2>10. Plagiarism / AI Declaration Statement</h2>
+
+<p>We, the undersigned members of this project group, declare that:</p>
+<ol>
+<li>This project and report are our own work, produced for <strong>ISB 46703 Principles of Artificial
+Intelligence</strong>, and have not been submitted for any other assessment.</li>
+<li>The architectural design of this Multi-Agent System — the collaboration pattern, agent role
+separation, routing strategy, escalation logic and fallback design — is our own and was
+<strong>not copied from any other group</strong>.</li>
+<li>Generative AI tools were used to write core application code, as expressly permitted and expected
+by the module's AI-Assisted Development Policy. The tools used, what each was used for, and how their
+output was evaluated and modified are declared in full in <strong>Section 7</strong> of this report.</li>
+<li>Every location at which we rejected or altered AI-generated logic is annotated in the submitted
+source code with a <code>[HUMAN-REVIEW]</code> comment recording our reasoning. There are thirteen such
+annotations, reproduced in Section 7.3.</li>
+<li>All external sources, frameworks and literature consulted are acknowledged in the References
+section in APA 7th edition format.</li>
+<li>We understand the system we are submitting and can explain, justify and modify any part of it on
+request.</li>
+<li>We understand that plagiarism and undeclared AI use are serious academic offences, and that the
+penalties described in the institution's academic-integrity regulations apply.</li>
+</ol>
+
+<table class="sig" style="margin-top:10mm;">
+<thead><tr><th style="width:8%">No.</th><th style="width:34%">Full Name</th><th style="width:22%">Student ID</th><th style="width:22%">Signature</th><th>Date</th></tr></thead>
+<tbody>
+<tr><td>1<br><span class="small">(Leader)</span></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>4</td><td></td><td></td><td></td><td></td></tr>
+</tbody>
+</table>
+
+<h3>Contribution statement</h3>
+<table>
+<thead><tr><th style="width:30%">Member</th><th>Primary contribution</th></tr></thead>
+<tbody>
+<tr><td><span class="fill">[Name]</span></td><td><span class="fill">[e.g. Architecture &amp; graph assembly; router design]</span></td></tr>
+<tr><td><span class="fill">[Name]</span></td><td><span class="fill">[e.g. Agent personas &amp; prompt engineering; few-shot design]</span></td></tr>
+<tr><td><span class="fill">[Name]</span></td><td><span class="fill">[e.g. Robustness, fallback module &amp; test suite]</span></td></tr>
+<tr><td><span class="fill">[Name]</span></td><td><span class="fill">[e.g. Tools, evaluation harness &amp; report]</span></td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ============================ 11. REFERENCES ============================ -->
+<section class="pagebreak">
+<h2>11. References</h2>
+<p class="small">APA 7th edition.</p>
+
+<div style="padding-left:1.6em; text-indent:-1.6em; line-height:1.7;">
+<p>Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., Agarwal, S., Herbert-Voss, A., Krueger, G., Henighan, T., Child, R., Ramesh, A., Ziegler, D. M., Wu, J., Winter, C., … Amodei, D. (2020). Language models are few-shot learners. <em>Advances in Neural Information Processing Systems, 33</em>, 1877–1901.</p>
+
+<p>Erman, L. D., Hayes-Roth, F., Lesser, V. R., &amp; Reddy, D. R. (1980). The Hearsay-II speech-understanding system: Integrating knowledge to resolve uncertainty. <em>ACM Computing Surveys, 12</em>(2), 213–253. https://doi.org/10.1145/356810.356816</p>
+
+<p>Guo, T., Chen, X., Wang, Y., Chang, R., Pei, S., Chawla, N. V., Wiest, O., &amp; Zhang, X. (2024). Large language model based multi-agents: A survey of progress and challenges. In <em>Proceedings of the Thirty-Third International Joint Conference on Artificial Intelligence (IJCAI-24)</em> (pp. 8048–8057). https://doi.org/10.24963/ijcai.2024/890</p>
+
+<p>Hayes-Roth, B. (1985). A blackboard architecture for control. <em>Artificial Intelligence, 26</em>(3), 251–321. https://doi.org/10.1016/0004-3702(85)90063-3</p>
+
+<p>LangChain. (2025). <em>LangGraph documentation</em>. https://langchain-ai.github.io/langgraph/</p>
+
+<p>MITRE. (2025). <em>MITRE ATT&amp;CK® enterprise matrix</em>. The MITRE Corporation. https://attack.mitre.org/</p>
+
+<p>Park, J. S., O'Brien, J. C., Cai, C. J., Morris, M. R., Liang, P., &amp; Bernstein, M. S. (2023). Generative agents: Interactive simulacra of human behavior. In <em>Proceedings of the 36th Annual ACM Symposium on User Interface Software and Technology (UIST '23)</em> (Article 2). https://doi.org/10.1145/3586183.3606763</p>
+
+<p>Russell, S. J., &amp; Norvig, P. (2021). <em>Artificial intelligence: A modern approach</em> (4th ed.). Pearson.</p>
+
+<p>Shinn, N., Cassano, F., Berman, E., Gopinath, A., Narasimhan, K., &amp; Yao, S. (2023). Reflexion: Language agents with verbal reinforcement learning. <em>Advances in Neural Information Processing Systems, 36</em>, 8634–8652.</p>
+
+<p>Verdoliva, L. (2020). Media forensics and DeepFakes: An overview. <em>IEEE Journal of Selected Topics in Signal Processing, 14</em>(5), 910–932. https://doi.org/10.1109/JSTSP.2020.3002101</p>
+
+<p>Wei, J., Wang, X., Schuurmans, D., Bosma, M., Ichter, B., Xia, F., Chi, E. H., Le, Q. V., &amp; Zhou, D. (2022). Chain-of-thought prompting elicits reasoning in large language models. <em>Advances in Neural Information Processing Systems, 35</em>, 24824–24837.</p>
+
+<p>Wooldridge, M. (2009). <em>An introduction to multiagent systems</em> (2nd ed.). John Wiley &amp; Sons.</p>
+
+<p>Wu, Q., Bansal, G., Zhang, J., Wu, Y., Li, B., Zhu, E., Jiang, L., Zhang, X., Zhang, S., Liu, J., Awadallah, A. H., White, R. W., Burger, D., &amp; Wang, C. (2023). <em>AutoGen: Enabling next-gen LLM applications via multi-agent conversation</em> (arXiv:2308.08155). arXiv. https://arxiv.org/abs/2308.08155</p>
+
+<p>Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., &amp; Cao, Y. (2023). ReAct: Synergizing reasoning and acting in language models. In <em>Proceedings of the Eleventh International Conference on Learning Representations (ICLR 2023)</em>. https://arxiv.org/abs/2210.03629</p>
+</div>
+
+<div class="warn" style="margin-top:8mm;">
+<strong>Before submission:</strong> verify each reference against the source you actually consulted,
+and remove any you did not use. A reference list must reflect real reading.
+</div>
+</section>
+
+</body>
+</html>

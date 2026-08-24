@@ -1,0 +1,7 @@
+{
+  "name": "Voice-only pretexting attempt",
+  "description": "Single-modality scenario. Demonstrates that the dynamic router activates only the audio specialist and leaves the video detector idle.",
+  "expected_path": "strategic_predictor",
+  "evidence_refs": ["helpdesk_call_1147.wav"],
+  "brief": "The IT helpdesk received a voice-only phone call from a caller using the cloned voice of the Head of Infrastructure, demanding an urgent MFA reset for a privileged account ahead of a claimed maintenance window. The caller became insistent when asked for out-of-band verification, then terminated the call. Within nine minutes the account showed a successful sign-in from an unfamiliar ASN, followed by privilege escalation and lateral movement toward the backup infrastructure, with command-and-control beaconing to 185.220.101.44. Determine whether the voice was synthetic, verify the attack vector, and predict what The Entity does next."
+}

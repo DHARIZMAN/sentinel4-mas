@@ -1,0 +1,8 @@
+# ---------------------------------------------------------------------------
+# Project SENTINEL-4 : Multi-Agent Countermeasure Unit
+# Runtime dependencies. Install with:  pip install -r requirements.txt
+# ---------------------------------------------------------------------------
+langgraph>=0.2.60,<2.0.0      # StateGraph orchestration (shared-state MAS)
+openai>=1.40.0                # OpenAI-compatible client (also drives LM Studio / Ollama)
+python-dotenv>=1.0.0          # Loads endpoint + key configuration from .env
+pytest>=8.0.0                 # Test suite (routing, tools, fallback latency)
