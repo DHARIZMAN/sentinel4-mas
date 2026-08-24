@@ -22,9 +22,9 @@ and a predictive counter-strategy.
 | **Presentation deck** | [`docs/PRESENTATION.pptx`](docs/PRESENTATION.pptx) | 16 slides with per-slide speaker notes and demo scripts |
 | Architecture diagram | [`docs/architecture.svg`](docs/architecture.svg) · [`.png`](docs/architecture.png) · [`.mermaid`](docs/architecture.mermaid) | Router, agent nodes, 4 conditional edges, state management |
 
-> **Before submitting:** fill in the remaining highlighted placeholders in the report —
-> the submission date on the cover page, the AI-usage table (§7.1), and the
-> declaration signatures (§10).
+> **Before submitting:** two highlighted items remain in the report — name the assistant used
+> for the implementation phase (§7.1, first row) and confirm or delete the LM Studio row —
+> then print and sign the declaration (§10).
 
 ---
 

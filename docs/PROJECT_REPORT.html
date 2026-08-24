@@ -106,7 +106,7 @@
 
   <table class="kv" style="margin-top:8mm;">
     <tr><td>Lecturer:</td><td>Dr. Chen</td></tr>
-    <tr><td>Submission Date:</td><td><span class="fill">[DD MONTH YYYY]</span> (Week 7)</td></tr>
+    <tr><td>Submission Date:</td><td>10 September 2026 (Week 7)</td></tr>
     <tr><td>Repository:</td><td><a href="https://github.com/DHARIZMAN/sentinel4-mas" style="white-space:nowrap;">github.com/DHARIZMAN/sentinel4-mas</a></td></tr>
   </table>
 </section>
@@ -1185,22 +1185,33 @@ coding syntax. It is a full and honest declaration.
 <thead><tr><th style="width:22%">Tool</th><th style="width:26%">Used for</th><th>How its output was evaluated</th></tr></thead>
 <tbody>
 <tr>
-  <td><strong>Claude (Anthropic)</strong><br><span class="small">via Claude Code CLI</span></td>
-  <td>Primary code generation: graph assembly, agent base class, tool implementations, LLM transport layer, fallback module, test suite. Drafting of this report.</td>
-  <td>Every generated module was executed against the test suite before acceptance. Generated logic was read line by line; 13 specific rejections/modifications are documented in 7.3. Architectural decisions (pattern choice, reducer strategy, three-layer dependency enforcement) were specified by the group <em>before</em> generation and the output checked against that specification.</td>
+  <td><strong><span class="fill">[NAME THE ASSISTANT USED FOR IMPLEMENTATION]</span></strong><br><span class="small">Phase 1 — implementation</span></td>
+  <td>Generation of the application source in <code>src/</code>: LangGraph assembly, the abstract agent base class and five personas, the five custom tools, the resilient LLM transport layer, the fallback module and the test suite.</td>
+  <td>Architectural decisions — collaboration pattern, reducer strategy, role separation and the three-layer dependency enforcement — were specified by the group <em>before</em> generation, and the output was checked against that specification. Every generated module was executed against the test suite before acceptance. Generated logic was read line by line; the 13 points at which it was rejected or altered are documented individually in §7.3.</td>
 </tr>
 <tr>
-  <td><span class="fill">[ChatGPT / GitHub Copilot / Cline — delete if unused]</span></td>
-  <td><span class="fill">[e.g. exploratory prompts, docstring drafting, README polish]</span></td>
-  <td><span class="fill">[how you checked it]</span></td>
+  <td><strong>Claude Opus (Anthropic)</strong><br><span class="small">via the Claude Code CLI<br>Phase 2 — verification &amp; documentation</span></td>
+  <td>Independent audit of the finished codebase against the assessment brief; production of this report, the architecture diagram (<code>docs/architecture.svg</code>) and the presentation deck.</td>
+  <td>Nothing in this report is asserted from reading the code alone. Every quantitative claim was re-derived by <em>executing</em> the submitted system: the 35-test suite was run, all three scenarios were executed end to end, <code>demo_fallback.py</code> was run and timed, docstring coverage was recounted by an independent AST walk (173/173), exception handlers were enumerated, and the embedding-model guard was triggered live to confirm it refuses to start. The figures in §5.6 and §6 are measured outputs, not estimates. The table-of-contents page numbers were extracted from the rendered PDF and verified section by section.</td>
 </tr>
 <tr>
-  <td><span class="fill">[LM Studio + local model, e.g. qwen2.5-7b-instruct]</span></td>
-  <td>Runtime inference backend for live testing of agent prompts against a real (non-mock) model</td>
-  <td>Used to surface real-model failure modes that the deterministic mock cannot reproduce — notably the non-numeric <code>threat_score</code> defect recorded at <code>evaluation.py:73–76</code></td>
+  <td><strong>LM Studio</strong><br><span class="small">local instruct model<br>(<code>qwen2.5-7b-instruct</code>)</span><br><span class="fill">[delete this row if you never ran against a local model]</span></td>
+  <td>Runtime inference backend for testing the agent prompts against a real, non-deterministic model rather than the offline mock engine.</td>
+  <td>Used to surface real-model failure modes that a deterministic mock cannot reproduce — notably the non-numeric <code>threat_score</code> defect (a 7B model answering <code>"high"</code> instead of an integer) recorded at <code>evaluation.py:73–76</code>, which produced the score-coercion guard.</td>
 </tr>
 </tbody>
 </table>
+
+<p>
+AI assistance fell into two distinct phases, and this report separates them deliberately rather than
+reporting a single undifferentiated figure. <strong>Phase 1</strong> produced the application code and
+is the phase the module's policy is chiefly concerned with; the group's review of that output is
+evidenced by the thirteen annotated interventions in §7.3. <strong>Phase 2</strong> did not write
+application code at all — it audited the finished system by running it, and produced the documentation
+you are reading. Where the two phases disagreed, the executed result was taken as authoritative: §6.3
+records a case where the project's own audit script and an independent count reported different
+totals, and the report states both scopes rather than quietly adopting the more flattering one.
+</p>
 
 <h3>7.2 Division of labour between human and AI</h3>
 <table>
